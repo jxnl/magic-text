@@ -3,6 +3,7 @@
 import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./_prompt";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const minSelectionLength = 50;
 
@@ -23,6 +24,12 @@ export default function Home() {
     const suffix = textBox.substring(selectEnd, textBox.length);
     const selectedText = textBox.substring(selectStart, selectEnd);
 
+    // if the selection is too short, warn the user
+    if (selectedText.length < minSelectionLength) {
+      setWarn(true);
+      return;
+    }
+
     // after the button click, the selection is reset so multiple
     // clicks can be made without having to reselect the text
     var _fillText = "";
@@ -36,7 +43,11 @@ export default function Home() {
       text: selectedText,
     });
 
-    console.log(`Sending request to Edge function... ${prompt}`);
+    if (prompt.length < minSelectionLength) {
+      console.warn("Prompt is too short. Returning text.");
+      setWarn(true);
+      return;
+    }
 
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -75,6 +86,7 @@ export default function Home() {
     setLoading(false);
     setSelectStart(0);
     setSelectEnd(0);
+    setMenuOpen(false);
   };
 
   // @ts-nocheck
@@ -110,6 +122,42 @@ export default function Home() {
 
   return (
     <div className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen">
+      <div className="text-left my-6">
+        Powered by{" "}
+        <a
+          href="https://openai.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2"
+        >
+          OpenAI
+        </a>{" "}
+        and{" "}
+        <a
+          href="https://vercel.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2"
+        >
+          Vercel
+        </a>
+        . Find me on{" "}
+        <Link
+          href="https://twitter.com/jxnlco"
+          className="font-bold hover:underline transition underline-offset-2"
+        >
+          Twitter
+        </Link>{" "}
+        and{" "}
+        <Link
+          href="https://github.com/jxnl/magic-text"
+          className="font-bold hover:underline transition underline-offset-2"
+          aria-label="Jason on GitHub"
+        >
+          Github
+        </Link>
+        .
+      </div>
       <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
         Magic Text by{" "}
         <a
@@ -119,7 +167,7 @@ export default function Home() {
           Jason
         </a>
       </h1>
-      <p className="text-md text-gray-600 my-4">
+      <p className="text-md text-gray-600 my-6">
         Select some text first to check out the magic, then apply a brush.
       </p>
       <textarea
@@ -131,23 +179,6 @@ export default function Home() {
         disabled={loading}
         className="w-full rounded-md text-sm border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
       />
-      <AnimatePresence>
-        {warn && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-6 my-4"
-            role="alert"
-          >
-            <p className="font-bold">Selection too short</p>
-            <p>
-              In order for magic text to work well we will need more than{" "}
-              {minSelectionLength}&nbsp; characters selected.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -180,6 +211,23 @@ export default function Home() {
                 </motion.button>
               ))}
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {warn && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-6 my-4"
+            role="alert"
+          >
+            <p className="font-bold">Selection too short</p>
+            <p>
+              In order for magic text to work well we will need more than{" "}
+              {minSelectionLength}&nbsp; characters selected.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
