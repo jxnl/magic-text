@@ -132,23 +132,6 @@ export default function Home() {
         className="w-full rounded-md text-sm border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
       />
       <AnimatePresence>
-        {warn && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-6 my-4"
-            role="alert"
-          >
-            <p className="font-bold">Selection too short</p>
-            <p>
-              In order for magic text to work well we will need more than{" "}
-              {minSelectionLength}&nbsp; characters selected.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
         {menuOpen && (
           <motion.div
             className=" bg-gray-50 shadow-lg rounded-md p-6 my-4 max-w-none border-2 border-gray-100"
@@ -180,6 +163,23 @@ export default function Home() {
                 </motion.button>
               ))}
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {warn && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-6 my-4"
+            role="alert"
+          >
+            <p className="font-bold">Selection too short</p>
+            <p>
+              In order for magic text to work well we will need more than{" "}
+              {minSelectionLength}&nbsp; characters selected.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
