@@ -1,8 +1,9 @@
 "use client";
 
 import { SyntheticEvent, useState } from "react";
-import { PromptType } from "./_prompt";
+import { PromptType, makePrompt } from "./_prompt";
 import { motion, AnimatePresence } from "framer-motion";
+import { text } from "stream/consumers";
 
 const minSelectionLength = 50;
 
@@ -12,6 +13,75 @@ export default function Home() {
   );
   const [warn, setWarn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [fillIn, setFillIn] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [selectStart, setSelectStart] = useState(0);
+  const [selectEnd, setSelectEnd] = useState(0);
+
+  const generateFillin = async (e: any, prompt: PromptType) => {
+    e.preventDefault();
+
+    const prefix = textBox.substring(0, selectStart);
+    const suffix = textBox.substring(selectEnd, textBox.length);
+    const selectedText = textBox.substring(selectStart, selectEnd);
+
+    // after the button click, the selection is reset so multiple
+    // clicks can be made without having to reselect the text
+    setSelectStart(0);
+    setSelectEnd(0);
+
+    console.log(prefix, suffix);
+
+    setFillIn("");
+    setLoading(true);
+
+    const requestPrompt = makePrompt({
+      promptType: prompt,
+      text: selectedText,
+    });
+
+    console.log(`requestPrompt: ${requestPrompt}`);
+
+    // sleep 1 second to simulate loading
+    await new Promise((r) => setTimeout(r, 3000));
+
+    setLoading(false);
+    return;
+
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requestPrompt,
+      }),
+    });
+    console.log("Edge function returned.");
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      generateFillin((prev: string) => prev + chunkValue);
+    }
+
+    setLoading(false);
+  };
 
   // @ts-nocheck
   async function onSelection(
@@ -23,6 +93,11 @@ export default function Home() {
       target.selectionStart || 0,
       target.selectionEnd || 0
     );
+
+    // cannot be accessed until the button click
+    // for some reason its not updating the state in this scope
+    setSelectStart(target.selectionStart || 0);
+    setSelectEnd(target.selectionEnd || 0);
 
     if (selection) {
       if (selection.toString().length < minSelectionLength) {
@@ -60,7 +135,8 @@ export default function Home() {
         onSelect={(e) => onSelection(e)}
         rows={10}
         cols={50}
-        className="w-full rounded-md border-gray-100 bg-gray-50 shadow-md p-6 border-2"
+        disabled={loading}
+        className="w-full rounded-md border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
         placeholder={
           "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
         }
@@ -82,7 +158,6 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -102,9 +177,11 @@ export default function Home() {
                 <motion.button
                   key={idx}
                   whileTap={{ scale: 0.95 }}
-                  className="mr-2 rounded-lg px-4 py-2 text-sm shadow-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200"
-                  onClick={() => {
-                    updateSelection(
+                  disabled={loading}
+                  className="mr-2 rounded-lg px-4 py-2 text-sm shadow-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
+                  onClick={(e) => {
+                    generateFillin(
+                      e,
                       PromptType[promptType as keyof typeof PromptType]
                     );
                   }}
