@@ -8,11 +8,10 @@ const minSelectionLength = 50;
 
 export default function Home() {
   const [textBox, setTextBox] = useState(
-    "I am a Data Scientist/Machine Learning Engineer with 8+ years of experience in Python and related Data/ML tools. I spend those years working with organizations such as Stitchfix, Meta, and NYU Global Institute of Public Health. I happen to a degree in Computational Mathematics & Statistics from the University of Waterloo.\nThanks for visiting, please reach out with any questions at jason at jxnl dot co.  \n\nNowadays I am just spending my time playing the trumpet, freediving, doing pottery, and jiujitsu."
+    "I am a Data Scientist/Machine Learning Engineer with 8+ years of experience in Python and related Data/ML tools. In the past, I spent my time working with organizations such as Stitchfix, Meta, and NYU Global Institute of Public Health. I happen to a degree in Computational Mathematics & Statistics from the University of Waterloo.\n\nThanks for checking out this demo, please reach out with any questions at jason at jxnl dot co.  \n\nThese days, I've been learning Javascript, this app took me about 8 hours and uses Vercel Edge Functions, Next.js, and OpenAI GPT models. I also like to play the trumpet, freedive, pottery, and jiujitsu so if you're into any of those things, let's connect on twitter @jxnl.co"
   );
   const [warn, setWarn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [fillIn, setFillIn] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectStart, setSelectStart] = useState(0);
   const [selectEnd, setSelectEnd] = useState(0);
@@ -71,7 +70,7 @@ export default function Home() {
       const chunkValue = decoder.decode(value);
       _fillText += chunkValue;
       _textBox = prefix + _fillText + suffix;
-      setTextBox(_textBox);
+      setTextBox(_textBox.trim());
     }
     setLoading(false);
     setSelectStart(0);
@@ -111,13 +110,17 @@ export default function Home() {
 
   return (
     <div className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen">
-      <h1 className="sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900 items-center">
-        Demonstrating a text editor with Text Magic
+      <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
+        Magic Text by{" "}
+        <a
+          className="underline-offset-8 underline"
+          href="https://jxnl.co/contact"
+        >
+          Jason
+        </a>
       </h1>
-      <p className="text-lg text-gray-600 my-4">
-        This is a demo of a text editor that uses text magic to improve your
-        text. Write some text below and select a section of text to see the
-        magic in action.
+      <p className="text-md text-gray-600 my-4">
+        Select some text first to check out the magic, then apply a brush.
       </p>
       <textarea
         value={textBox}
@@ -126,7 +129,7 @@ export default function Home() {
         rows={10}
         cols={50}
         disabled={loading}
-        className="w-full rounded-md border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
+        className="w-full rounded-md text-sm border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
       />
       <AnimatePresence>
         {warn && (
@@ -180,7 +183,6 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-      <p>{fillIn}</p>
     </div>
   );
 }
