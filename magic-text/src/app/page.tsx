@@ -49,13 +49,18 @@ export default function Home() {
       <h1 className="sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900 items-center">
         Demonstrating a text editor with Text Magic
       </h1>
+      <p className="text-lg text-gray-600 my-4">
+        This is a demo of a text editor that uses text magic to improve your
+        text. Write some text below and select a section of text to see the
+        magic in action.
+      </p>
       <textarea
         value={textBox}
         onChange={(e) => setTextBox(e.target.value)}
         onSelect={(e) => onSelection(e)}
         rows={10}
         cols={50}
-        className="w-full rounded-md border-gray-100 bg-gray-50 shadow-md  my-5 p-3 border-2"
+        className="w-full rounded-md border-gray-100 bg-gray-50 shadow-md p-6 border-2"
         placeholder={
           "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
         }
@@ -66,7 +71,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 my-4"
+            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-6 my-4"
             role="alert"
           >
             <p className="font-bold">Selection too short</p>
@@ -81,26 +86,33 @@ export default function Home() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="inline-flex  divide-gray-200 first:rounded-l-lg last:rounded-r-lg"
+            className=" bg-gray-50 shadow-lg rounded-md p-6 my-4 max-w-none border-2 border-gray-100"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             role="group"
           >
-            {Object.keys(PromptType).map((promptType, idx) => (
-              <motion.button
-                key={idx}
-                whileTap={{ scale: 0.95 }}
-                className="px-4 py-2 text-sm shadow-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200"
-                onClick={() => {
-                  updateSelection(
-                    PromptType[promptType as keyof typeof PromptType]
-                  );
-                }}
-              >
-                {promptType}
-              </motion.button>
-            ))}
+            <h2 className="text-sm font-medium mb-1">Text Brushes</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Apply any brush to the text you've selected to use text magic to
+              improve your writing instantly.
+            </p>
+            <div>
+              {Object.keys(PromptType).map((promptType, idx) => (
+                <motion.button
+                  key={idx}
+                  whileTap={{ scale: 0.95 }}
+                  className="mr-2 rounded-lg px-4 py-2 text-sm shadow-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200"
+                  onClick={() => {
+                    updateSelection(
+                      PromptType[promptType as keyof typeof PromptType]
+                    );
+                  }}
+                >
+                  {promptType}
+                </motion.button>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
