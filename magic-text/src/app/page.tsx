@@ -17,7 +17,7 @@ export default function Home() {
   const [selectStart, setSelectStart] = useState(0);
   const [selectEnd, setSelectEnd] = useState(0);
 
-  const generateFillin = async (e: any, prompt: PromptType) => {
+  const generateFillin = async (e: any, promptType: PromptType) => {
     e.preventDefault();
 
     const prefix = textBox.substring(0, selectStart);
@@ -26,17 +26,18 @@ export default function Home() {
 
     // after the button click, the selection is reset so multiple
     // clicks can be made without having to reselect the text
-    setFillIn("");
+    var _fillText = "";
+    var _textBox = textBox;
     setSelectStart(0);
     setSelectEnd(0);
     setLoading(true);
 
-    const requestPrompt = makePrompt({
-      promptType: prompt,
+    const prompt = makePrompt({
+      promptType: promptType,
       text: selectedText,
     });
 
-    console.log(`Sending request to Edge function... ${requestPrompt}`);
+    console.log(`Sending request to Edge function... ${prompt}`);
 
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -44,7 +45,7 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        requestPrompt,
+        prompt,
       }),
     });
     console.log("Edge function returned.");
@@ -68,24 +69,27 @@ export default function Home() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setFillIn((prev: string) => prev + chunkValue);
-      setTextBox(prefix + fillIn + suffix);
+      _fillText += chunkValue;
+      _textBox = prefix + _fillText + suffix;
+      setTextBox(_textBox);
     }
-
     setLoading(false);
+    setSelectStart(0);
+    setSelectEnd(0);
   };
 
   // @ts-nocheck
   async function onSelection(
     event: SyntheticEvent<HTMLTextAreaElement, Event>
   ) {
+    // used to determine if we should show the menu
+    // and if the selection is long enough and warn the user
     const target = event.target as HTMLInputElement;
 
     const selection = target.value.substring(
       target.selectionStart || 0,
       target.selectionEnd || 0
     );
-
     // cannot be accessed until the button click
     // for some reason its not updating the state in this scope
     setSelectStart(target.selectionStart || 0);
@@ -123,9 +127,6 @@ export default function Home() {
         cols={50}
         disabled={loading}
         className="w-full rounded-md border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
-        placeholder={
-          "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
-        }
       />
       <AnimatePresence>
         {warn && (
@@ -179,6 +180,7 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+      <p>{fillIn}</p>
     </div>
   );
 }
