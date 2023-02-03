@@ -3,6 +3,7 @@
 import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./_prompt";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const minSelectionLength = 50;
 
@@ -42,7 +43,11 @@ export default function Home() {
       text: selectedText,
     });
 
-    console.log(`Sending request to Edge function... ${prompt}`);
+    if (prompt.length < minSelectionLength) {
+      console.warn("Prompt is too short. Returning text.");
+      setWarn(true);
+      return;
+    }
 
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -81,6 +86,7 @@ export default function Home() {
     setLoading(false);
     setSelectStart(0);
     setSelectEnd(0);
+    setMenuOpen(false);
   };
 
   // @ts-nocheck
@@ -116,6 +122,42 @@ export default function Home() {
 
   return (
     <div className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen">
+      <div className="text-left my-6">
+        Powered by{" "}
+        <a
+          href="https://openai.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2"
+        >
+          OpenAI
+        </a>{" "}
+        and{" "}
+        <a
+          href="https://vercel.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2"
+        >
+          Vercel
+        </a>
+        . Find me on{" "}
+        <Link
+          href="https://twitter.com/jxnlco"
+          className="font-bold hover:underline transition underline-offset-2"
+        >
+          Twitter
+        </Link>{" "}
+        and{" "}
+        <Link
+          href="https://github.com/jxnl/magic-text"
+          className="font-bold hover:underline transition underline-offset-2"
+          aria-label="Jason on GitHub"
+        >
+          Github
+        </Link>
+        .
+      </div>
       <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
         Magic Text by{" "}
         <a
@@ -125,7 +167,7 @@ export default function Home() {
           Jason
         </a>
       </h1>
-      <p className="text-md text-gray-600 my-4">
+      <p className="text-md text-gray-600 my-6">
         Select some text first to check out the magic, then apply a brush.
       </p>
       <textarea
