@@ -1,7 +1,7 @@
 "use client";
 
 import { SyntheticEvent, useState } from "react";
-import { PromptType, makePrompt } from "./_prompt";
+import { PromptType, makePrompt } from "./prompt";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
