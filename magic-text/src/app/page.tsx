@@ -23,6 +23,12 @@ export default function Home() {
     const suffix = textBox.substring(selectEnd, textBox.length);
     const selectedText = textBox.substring(selectStart, selectEnd);
 
+    // if the selection is too short, warn the user
+    if (selectedText.length < minSelectionLength) {
+      setWarn(true);
+      return;
+    }
+
     // after the button click, the selection is reset so multiple
     // clicks can be made without having to reselect the text
     var _fillText = "";
