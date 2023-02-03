@@ -3,7 +3,6 @@
 import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./_prompt";
 import { motion, AnimatePresence } from "framer-motion";
-import { text } from "stream/consumers";
 
 const minSelectionLength = 50;
 
@@ -27,12 +26,9 @@ export default function Home() {
 
     // after the button click, the selection is reset so multiple
     // clicks can be made without having to reselect the text
+    setFillIn("");
     setSelectStart(0);
     setSelectEnd(0);
-
-    console.log(prefix, suffix);
-
-    setFillIn("");
     setLoading(true);
 
     const requestPrompt = makePrompt({
@@ -40,13 +36,7 @@ export default function Home() {
       text: selectedText,
     });
 
-    console.log(`requestPrompt: ${requestPrompt}`);
-
-    // sleep 1 second to simulate loading
-    await new Promise((r) => setTimeout(r, 3000));
-
-    setLoading(false);
-    return;
+    console.log(`Sending request to Edge function... ${requestPrompt}`);
 
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -58,6 +48,7 @@ export default function Home() {
       }),
     });
     console.log("Edge function returned.");
+    console.log(response);
 
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -77,7 +68,8 @@ export default function Home() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      generateFillin((prev: string) => prev + chunkValue);
+      setFillIn((prev: string) => prev + chunkValue);
+      setTextBox(prefix + fillIn + suffix);
     }
 
     setLoading(false);
@@ -111,12 +103,6 @@ export default function Home() {
       setWarn(false);
       setMenuOpen(false);
     }
-  }
-
-  async function updateSelection(promptType: PromptType) {
-    console.log(`promptType: ${promptType}`);
-    // sleep for 1 second to simulate loading
-    await new Promise((r) => setTimeout(r, 1000));
   }
 
   return (
@@ -169,8 +155,8 @@ export default function Home() {
           >
             <h2 className="text-sm font-medium mb-1">Text Brushes</h2>
             <p className="text-sm text-gray-600 mb-4">
-              Apply any brush to the text you've selected to use text magic to
-              improve your writing instantly.
+              Apply any brush to the text you&apos;ve selected to use text magic
+              to improve your writing instantly.
             </p>
             <div>
               {Object.keys(PromptType).map((promptType, idx) => (

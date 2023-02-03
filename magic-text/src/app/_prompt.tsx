@@ -14,15 +14,15 @@ export function makePrompt({
   text: string;
 }) {
   if (promptType === PromptType.Professional) {
-    return `Rewrite this text in a professional manner: ${text} \n\nRewrite:`;
+    return `Rewrite this text in a professional manner: \n\n${text} \n\nRewrite:`;
   } else if (promptType === PromptType.Longer) {
-    return `Rewrite this text in a longer manner: ${text} \n\nRewrite:`;
+    return `Rewrite this text in a longer manner: \n\n${text} \n\nRewrite:`;
   } else if (promptType === PromptType.Shorter) {
-    return `Rewrite this text in a shorter manner: ${text} \n\nRewrite:`;
+    return `Rewrite this text in a shorter manner: \n\n${text} \n\nRewrite:`;
   } else if (promptType === PromptType.ActionItems) {
-    return `Rewrite this text in a manner that includes action items: ${text} \n\nRewrite:`;
+    return `Rewrite this text in a manner that includes action items: \n\n${text} \n\nRewrite:`;
   } else if (promptType === PromptType.Explain) {
-    return `Rewrite this text in a manner that explains this simply: ${text} \n\nExplain:`;
+    return `Rewrite this text in a manner that explains this simply: \n\n${text} \n\nExplain:`;
   } else {
     // if no prompt type is specified, return the text and warn the user
     console.warn("No prompt type specified. Returning text.");
