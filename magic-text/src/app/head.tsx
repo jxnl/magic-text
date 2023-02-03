@@ -7,7 +7,6 @@ export default function Head() {
         name="description"
         content="Watch your text transform into something new."
       />
-      <meta property="og:site_name" content="twitterbio.com" />
       <meta
         property="og:description"
         content="Watch your text transform into something new."
@@ -17,7 +16,7 @@ export default function Head() {
       <meta name="twitter:title" content="Magic text brushes" />
       <meta
         name="twitter:description"
-        content="Generate your next Twitter bio in seconds."
+        content="Watch your text transform into something new.."
       />
     </>
   );
