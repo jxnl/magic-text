@@ -2,7 +2,6 @@
 
 import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./prompt";
-import { AnimatePresence } from "framer-motion";
 import { BrushMenu, Warning, minSelectionLength } from "./components";
 
 export default function Home() {
