@@ -2,10 +2,8 @@
 
 import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./prompt";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-
-const minSelectionLength = 50;
+import { AnimatePresence } from "framer-motion";
+import { BrushMenu, Warning, minSelectionLength } from "./components";
 
 export default function Home() {
   const [textBox, setTextBox] = useState(
@@ -121,43 +119,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen">
-      <div className="text-left my-6">
-        Powered by{" "}
-        <a
-          href="https://openai.com/"
-          target="_blank"
-          rel="noreferrer"
-          className="font-bold hover:underline transition underline-offset-2"
-        >
-          OpenAI
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://vercel.com/"
-          target="_blank"
-          rel="noreferrer"
-          className="font-bold hover:underline transition underline-offset-2"
-        >
-          Vercel
-        </a>
-        . Find me on{" "}
-        <Link
-          href="https://twitter.com/jxnlco"
-          className="font-bold hover:underline transition underline-offset-2"
-        >
-          Twitter
-        </Link>{" "}
-        and{" "}
-        <Link
-          href="https://github.com/jxnl/magic-text"
-          className="font-bold hover:underline transition underline-offset-2"
-          aria-label="Jason on GitHub"
-        >
-          Github
-        </Link>
-        .
-      </div>
+    <div>
       <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
         Magic Text by{" "}
         <a
@@ -179,58 +141,13 @@ export default function Home() {
         disabled={loading}
         className="w-full rounded-md text-sm border-gray-100 bg-gray-50 shadow-md p-6 border-2 disabled:opacity-60"
       />
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className=" bg-gray-50 shadow-lg rounded-md p-6 my-4 max-w-none border-2 border-gray-100"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            role="group"
-          >
-            <h2 className="text-sm font-medium mb-1">Text Brushes</h2>
-            <p className="text-sm text-gray-600 mb-4">
-              Apply any brush to the text you&apos;ve selected to use text magic
-              to improve your writing instantly.
-            </p>
-            <div>
-              {Object.keys(PromptType).map((promptType, idx) => (
-                <motion.button
-                  key={idx}
-                  whileTap={{ scale: 0.95 }}
-                  disabled={loading}
-                  className="mr-2 rounded-lg px-4 py-2 text-sm shadow-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
-                  onClick={(e) => {
-                    generateFillin(
-                      e,
-                      PromptType[promptType as keyof typeof PromptType]
-                    );
-                  }}
-                >
-                  {promptType}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {warn && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-6 my-4"
-            role="alert"
-          >
-            <p className="font-bold">Selection too short</p>
-            <p>
-              In order for magic text to work well we will need more than{" "}
-              {minSelectionLength}&nbsp; characters selected.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+      <BrushMenu
+        isLoading={loading}
+        onClick={generateFillin}
+        isOpen={menuOpen}
+      />
+      <Warning isWarn={warn} />
     </div>
   );
 }
