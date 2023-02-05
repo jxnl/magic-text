@@ -100,10 +100,10 @@ CREATE TABLE Products (
         </a>
       </h1>
       <p className="text-md text-gray-600 my-6">
-        Use the default schema or add your own. Ask questions in natural
-        language and let Magic SQL do its best to explain the answer and suggest
-        data if it doesn{"'"}t know. You can also Magic to add tables or columns
-        and the schema will automatically update.
+        Use the default schema or add your own and ask questions in plain
+        englihs and let Magic SQL do its best to explain the answer. You can
+        also Magic to add tables or columns and the schema will automatically
+        update.
       </p>
       <textarea
         value={schema}

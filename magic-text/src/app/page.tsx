@@ -42,9 +42,10 @@ export default function Home() {
             </Link>
           </h2>
           <p className=" text-gray-600 pt-1">
-            Select some text in the text area to see the brush options and watch
-            as Magic rewrites what you ask it to in real time, no need to wait
-            for loading spinners.
+            Simply highlight any text in the text area, and you'll be able to
+            see the brush options in real time. No need to wait for any loading
+            spinners, as Magic will immediately begin rewriting your selection
+            to your specifications.
           </p>
         </div>
         <div className="text-slate-700">
@@ -57,10 +58,10 @@ export default function Home() {
             </Link>
           </h2>
           <p className=" text-gray-600 pt-1">
-            Use the default schema or add your own. Ask questions in natural
-            language and let Magic SQL do its best to explain the answer and
-            suggest data if it doesn{"'"}t know. You can also Magic to add
-            tables or columns and the schema will automatically update.
+            Use the default schema or add your own and ask questions in plain
+            englihs and let Magic SQL do its best to explain the answer. You can
+            also Magic to add tables or columns and the schema will
+            automatically update.
           </p>
         </div>
       </div>

@@ -1,22 +1,18 @@
 export default function Head() {
   return (
     <>
-      <title>Magic Text</title>
+      <title>Magic by Jason Liu</title>
       <link rel="icon" href="/favicon.ico" />
-      <meta
-        name="description"
-        content="Watch your text transform into something new."
-      />
+      <meta name="description" content="Collection of React demos using GPT" />
       <meta
         property="og:description"
-        content="Watch your text transform into something new."
+        content="Collection of React demos using GPT"
       />
-      <meta property="og:title" content="Magic text brushes" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Magic text brushes" />
+      <meta property="og:title" content="Collection of React demos using GPT" />
+      <meta name="twitter:title" content="Magic by Jason" />
       <meta
         name="twitter:description"
-        content="Watch your text transform into something new.."
+        content="Collection of React demos using GPT, writing, sql, and more."
       />
     </>
   );

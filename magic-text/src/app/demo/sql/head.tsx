@@ -6,8 +6,7 @@ export default function Head() {
       <meta name="description" content="Ask your new AI Analyist." />
       <meta property="og:description" content="Ask your new AI Analyist" />
       <meta property="og:title" content="Ask your new AI Analyist" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Ask your new AI Analyist" />
+      <meta name="twitter:title" content="Magic SQL" />
       <meta name="twitter:description" content="Ask your new AI Analyist" />
     </>
   );

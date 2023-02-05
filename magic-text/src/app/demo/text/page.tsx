@@ -130,9 +130,10 @@ export default function Home() {
         </a>
       </h1>
       <p className="text-md text-gray-600 my-6">
-        Select some text in the text area to see the brush options and watch as
-        Magic rewrites what you ask it to in real time, no need to wait for
-        loading spinners.
+        Simply highlight any text in the text area, and you'll be able to see
+        the brush options in real time. No need to wait for any loading
+        spinners, as Magic will immediately begin rewriting your selection to
+        your specifications.
       </p>
       <textarea
         value={textBox}
