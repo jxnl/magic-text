@@ -4,7 +4,13 @@ import Link from "next/link";
 function Header() {
   return (
     <div className="text-left my-6">
-      Powered by{" "}
+      <Link
+        href="/"
+        className="font-bold hover:underline transition underline-offset-2"
+      >
+        Magic
+      </Link>{" "}
+      powered by{" "}
       <a
         href="https://openai.com/"
         target="_blank"
