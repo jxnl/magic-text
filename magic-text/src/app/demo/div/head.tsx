@@ -3,11 +3,23 @@ export default function Head() {
     <>
       <title>Magic Div</title>
       <link rel="icon" href="/favicon.ico" />
-      <meta name="description" content="Ask your new AI Analyist." />
-      <meta property="og:description" content="Ask your new AI Analyist" />
-      <meta property="og:title" content="Ask your new AI Analyist" />
-      <meta name="twitter:title" content="Magic SQL" />
-      <meta name="twitter:description" content="Ask your new AI Analyist" />
+      <meta
+        name="description"
+        content="Write HTML/Tailwind css in plain english."
+      />
+      <meta
+        property="og:description"
+        content="Write HTML/Tailwind css in plain english"
+      />
+      <meta
+        property="og:title"
+        content="Write HTML/Tailwind css in plain english"
+      />
+      <meta name="twitter:title" content="Magic <div>" />
+      <meta
+        name="twitter:description"
+        content="Write HTML/Tailwind css in plain english"
+      />
     </>
   );
 }
