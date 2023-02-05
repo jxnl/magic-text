@@ -55,9 +55,18 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen p-2">
+      <body className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 p-2">
         <Header />
-        {children}
+
+        <div className="min-h-screen">{children}</div>
+        <footer>
+          <div>
+            <p className="border-t-2 py-2 text-sm max-w-2xl text-gray-500 justify-center">
+              Any sufficiently advanced technology is indistinguishable from
+              magic. - Arthur C. Clarke
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );
