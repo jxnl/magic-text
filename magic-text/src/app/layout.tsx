@@ -55,7 +55,7 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen">
+      <body className="flex max-w-2xl mx-auto flex-col items-left py-2 mt-20 min-h-screen p-2">
         <Header />
         {children}
       </body>

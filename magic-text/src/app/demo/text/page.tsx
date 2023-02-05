@@ -3,6 +3,7 @@
 import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./prompt";
 import { BrushMenu, Warning, minSelectionLength } from "./components";
+import Link from "next/link";
 
 export default function Home() {
   const [textBox, setTextBox] = useState(
@@ -120,7 +121,7 @@ export default function Home() {
   return (
     <div>
       <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        Magic Text by{" "}
+        <Link href="/">Magic</Link> Text by{" "}
         <a
           className="underline-offset-8 underline"
           href="https://jxnl.co/contact"
@@ -129,7 +130,9 @@ export default function Home() {
         </a>
       </h1>
       <p className="text-md text-gray-600 my-6">
-        Select some text first to check out the magic, then apply a brush.
+        Select some text in the text area to see the brush options and watch as
+        Magic rewrites what you ask it to in real time, no need to wait for
+        loading spinners.
       </p>
       <textarea
         value={textBox}

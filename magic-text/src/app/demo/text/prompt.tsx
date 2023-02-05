@@ -3,6 +3,7 @@ export enum PromptType {
   Casual = "Casual",
   Longer = "Longer",
   Shorter = "Shorter",
+  Polite = "Polite",
   Pirate = "Pirate",
 }
 
@@ -23,6 +24,8 @@ export function makePrompt({
     return `Rewrite this text as a longer piece of text, add 3-4 more sentences and use sophisticated language: \n\n${text} \n\nRewrite:`;
   } else if (promptType === PromptType.Shorter) {
     return `Rewrite this text shorter, be concise but informative: \n\n${text} \n\nRewrite:`;
+  } else if (promptType === PromptType.Polite) {
+    return `Rewrite this text in a polite tone: \n\n${text} \n\nRewrite:`;
   } else {
     // if no prompt type is specified, return the text and warn the user
     console.warn("No prompt type specified. Returning text.");

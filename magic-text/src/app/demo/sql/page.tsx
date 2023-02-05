@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { makePrompt } from "./prompt";
@@ -90,7 +91,7 @@ CREATE TABLE Products (
   return (
     <div>
       <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        Magic SQL by{" "}
+        <Link href="/">Magic</Link> SQL by{" "}
         <a
           className="underline-offset-8 underline"
           href="https://jxnl.co/contact"

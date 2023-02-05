@@ -52,7 +52,9 @@ export function BrushMenu({
         onClick={(e) => {
           onClick(e, PromptType[promptType as keyof typeof PromptType]);
         }}
-      ></motion.button>
+      >
+        {promptType}
+      </motion.button>
     );
   }
 
