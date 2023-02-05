@@ -130,8 +130,8 @@ export default function Home() {
         </a>
       </h1>
       <p className="text-md text-gray-600 my-6">
-        Simply highlight any text in the text area, and you'll be able to see
-        the brush options in real time. No need to wait for any loading
+        Simply highlight any text in the text area, and you{"'"}ll be able to
+        see the brush options in real time. No need to wait for any loading
         spinners, as Magic will immediately begin rewriting your selection to
         your specifications.
       </p>

@@ -17,6 +17,7 @@
     "eslint-config-next": "13.1.6",
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^9.0.1",
+    "html-react-parser": "^3.0.8",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
