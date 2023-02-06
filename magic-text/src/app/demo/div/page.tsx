@@ -88,7 +88,7 @@ export default function Home(): JSX.Element {
           <textarea
             value={command}
             disabled={loading}
-            rows={4}
+            rows={5}
             className="w-full rounded-lg text-md border-gray-00  text-gray-700 bg-gray-50 p-2 border-2 disabled:opacity-60"
             onChange={(e) => {
               setCommand(e.target.value);
