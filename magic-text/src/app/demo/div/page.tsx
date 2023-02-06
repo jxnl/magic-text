@@ -78,37 +78,46 @@ export default function Home(): JSX.Element {
       <SyntaxHighlighter
         wrapLongLines={true}
         language="html"
-        className="mt-6 p-6 rounded-md text-xs"
+        className="mt-6 p-6 py-10 rounded-md text-xs"
       >
         {html}
       </SyntaxHighlighter>
 
-      <div className="flex mt-6 space-x-3">
-        <textarea
-          value={command}
-          disabled={loading}
-          rows={3}
-          className="flex-1 rounded-lg text-md border-gray-00  text-gray-900 bg-gray-50 p-2 border-2 disabled:opacity-60"
-          onChange={(e) => {
-            setCommand(e.target.value);
-          }}
-        />
-        <div className="flex-none">
+      <div className="grid grid-cols-5 gap-3 mt-6">
+        <div className="col-span-5 md:col-span-4">
+          <textarea
+            value={command}
+            disabled={loading}
+            rows={4}
+            className="w-full rounded-lg text-md border-gray-00  text-gray-700 bg-gray-50 p-2 border-2 disabled:opacity-60"
+            onChange={(e) => {
+              setCommand(e.target.value);
+            }}
+          />
+        </div>
+        <div className="col-span-5 md:col-span-1 space-y-2">
           <button
             onClick={(e) => generateFillin(e)}
             disabled={loading}
-            className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
+            className="w-full rounded-lg px-4 py-2 text-md font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
           >
             Ask Magic
           </button>
           <button
             onClick={() => {
               setHTML("<div></div>");
-              setStop(true);
             }}
-            className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
+            className="w-full rounded-lg px-4 py-2 text-md font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
           >
-            Clear
+            Clear Html
+          </button>
+          <button
+            onClick={() => {
+              setCommand("");
+            }}
+            className="w-full rounded-lg px-4 py-2 text-md font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
+          >
+            Clear Text
           </button>
         </div>
       </div>
