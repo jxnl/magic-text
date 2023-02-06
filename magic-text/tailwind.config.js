@@ -7,9 +7,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  safelist: [
-    {
-      pattern: /./, // the "." means "everything"
-    },
-  ],
 };

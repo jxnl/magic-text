@@ -5,6 +5,8 @@ import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import parse from "html-react-parser";
 import { makePrompt, exampleQuestion } from "./prompt";
+import { Helmet } from "react-helmet";
+import Script from "next/script";
 
 export default function Home(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -122,6 +124,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
       <div className="mt-5 rounded-lg p-5 bg-gray-50">{parse(html)}</div>
+      <Script src="https://unpkg.com/tailwindcss-jit-cdn"></Script>
     </div>
   );
 }
