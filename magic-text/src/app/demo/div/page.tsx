@@ -5,7 +5,6 @@ import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import parse from "html-react-parser";
 import { makePrompt, exampleQuestion } from "./prompt";
-import { Helmet } from "react-helmet";
 import Script from "next/script";
 
 export default function Home(): JSX.Element {
