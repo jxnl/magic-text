@@ -1,5 +1,22 @@
 import Link from "next/link";
 
+function MagicLink(props: { name: string; desc: string }): JSX.Element {
+  const { name, desc } = props;
+  return (
+    <div className="text-slate-700">
+      <h2 className="sm:text-2xl text-md max-w-2xl font-bold items-center pt-2">
+        <Link
+          href={`demo/${name.toLocaleLowerCase()}`}
+          className="underline underline-offset-3 hover:text-gray-900"
+        >
+          Magic {name}:
+        </Link>
+      </h2>
+      <p className=" text-gray-600 pt-1">{desc}</p>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div>
@@ -32,53 +49,26 @@ export default function Home() {
       </p>
 
       <div className="demo-container p-2 pt-4 border-t-2">
-        <div className="text-slate-700">
-          <h2 className="sm:text-2xl text-md max-w-2xl font-bold items-center pt-2">
-            <Link
-              href="demo/text"
-              className="underline underline-offset-3 hover:text-gray-900"
-            >
-              Magic Text:
-            </Link>
-          </h2>
-          <p className=" text-gray-600 pt-1">
-            Simply highlight any text in the text area, and you{"'"}ll be able
+        <MagicLink
+          name="Text"
+          desc="Simply highlight any text in the text area, and you'll be able
             to see the brush options in real time. No need to wait for any
             loading spinners, as Magic will immediately begin rewriting your
-            selection to your specifications.
-          </p>
-        </div>
-        <div className="text-slate-700">
-          <h2 className="sm:text-2xl text-md max-w-2xl font-bold items-center pt-2">
-            <Link
-              href="demo/sql"
-              className="underline underline-offset-3 hover:text-gray-900"
-            >
-              Magic SQL:
-            </Link>
-          </h2>
-          <p className=" text-gray-600 pt-1">
-            Use the default schema or add your own and ask questions in plain
+            selection to your specifications."
+        />
+        <MagicLink
+          name="SQL"
+          desc="Use the default schema or add your own and ask questions in plain
             english and let Magic SQL do its best to explain the answer. You can
             also Magic to add tables or columns and the schema will
-            automatically update.
-          </p>
-        </div>
-        <div className="text-slate-700">
-          <h2 className="sm:text-2xl text-md max-w-2xl font-bold items-center pt-2">
-            <Link
-              href="demo/div"
-              className="underline underline-offset-3 hover:text-gray-900"
-            >
-              Magic Div:
-            </Link>
-          </h2>
-          <p className=" text-gray-600 pt-1">
-            Magic Div is a simple tool to help you create HTML divs. You can use
+            automatically update."
+        />
+        <MagicLink
+          name="Div"
+          desc="Magic Div is a simple tool to help you create HTML divs. You can use
             natrual language to describe the content and Magic will do its best
-            to create the layout you{"'"}re looking for using tailwindcss.
-          </p>
-        </div>
+            to create the layout you're looking for using tailwindcss."
+        />
       </div>
     </div>
   );
