@@ -21,6 +21,7 @@ interface OpenAIStreamPayload {
   presence_penalty: number;
   max_tokens: number;
   stream: boolean;
+  stop?: string[];
   n: number;
 }
 
@@ -81,8 +82,9 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { prompt } = (await req.json()) as {
+  const { prompt, stop } = (await req.json()) as {
     prompt?: string;
+    stop?: string[];
   };
 
   if (!prompt) {
@@ -98,6 +100,7 @@ const handler = async (req: Request): Promise<Response> => {
     presence_penalty: 0,
     max_tokens: 2000,
     stream: true,
+    stop: stop || [],
     n: 1,
   };
 
