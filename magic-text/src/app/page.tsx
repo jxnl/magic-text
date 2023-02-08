@@ -69,6 +69,11 @@ export default function Home() {
             natrual language to describe the content and Magic will do its best
             to create the layout you're looking for using tailwindcss."
         />
+        <MagicLink
+          name="Survey"
+          desc="Magic survey takes a json schema and defines conversational agent that helps users and complete 
+         survery and sets the data into a object in the browser."
+        />
       </div>
     </div>
   );
