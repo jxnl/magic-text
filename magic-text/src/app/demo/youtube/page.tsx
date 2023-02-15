@@ -101,7 +101,7 @@ export default function Home() {
       </h1>
       <p className="text-md text-gray-600 my-6">
         Input a youtube video url and get a summary in markdown format. If it
-        doesn't have a transcript, it will use whisper but it may be less
+        does not have a transcript, it will use whisper but it may be less
         accurate than the transcript and will take longer to generate.
       </p>
       <SyntaxHighlighter

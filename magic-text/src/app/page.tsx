@@ -57,6 +57,12 @@ export default function Home() {
             selection to your specifications."
         />
         <MagicLink
+          name="Youtube"
+          desc="Input a youtube video url and get a summary in markdown format. If it
+            does not have a transcript, it will use whisper but it may be less
+            accurate than the transcript and will take longer to generate."
+        />
+        <MagicLink
           name="SQL"
           desc="Use the default schema or add your own and ask questions in plain
             english and let Magic SQL do its best to explain the answer. You can
