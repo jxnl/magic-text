@@ -100,7 +100,7 @@ const handler = async (req: Request): Promise<Response> => {
     presence_penalty: 0,
     max_tokens: 2000,
     stream: true,
-    stop: stop || [],
+    stop: stop || undefined,
     n: 1,
   };
 
