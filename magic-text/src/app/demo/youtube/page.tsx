@@ -56,18 +56,19 @@ export default function Home() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      // sometimes chunkValue gets decoded as adate, if that h appens we want to throw it out
-      // or if its numeric
-      if (
-        chunkValue.match(/^[0-9]+$/) ||
-        new Date(chunkValue).toString() === "Invalid Date"
-      ) {
-        _fillText += chunkValue;
-        // if there is a single # at the start we add two new lines
-        // to make it a header
-        setSummary(_fillText.trim());
+
+      // throw out data that looks like date
+      // 2023-02-15 22:53:24.667388
+      const regex = new RegExp(
+        "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}).(\\d{6})"
+      );
+
+      if (regex.test(chunkValue)) {
+        console.log("skipping date", chunkValue);
+        continue;
       } else {
-        console.log("Invalid date: " + chunkValue);
+        _fillText += chunkValue;
+        setSummary(_fillText.trim());
       }
     }
 
