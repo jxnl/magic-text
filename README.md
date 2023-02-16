@@ -1,4 +1,4 @@
-# [Magic Text](https://magic-text-gamma.vercel.app/)
+# [Magic Text](http://magic.jxnl.co/)
 
 Its a collection of demostrations I've made that use GPT and nextjs, please check it out and give some feedback!
 
