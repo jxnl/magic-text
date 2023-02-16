@@ -41,11 +41,12 @@ async function Summary(payload: StreamPayload) {
             return;
           }
           try {
-            const queue = encoder.encode(data);
+            const json = JSON.parse(data);
+            const text = json.text;
+            const queue = encoder.encode(text);
             controller.enqueue(queue);
           } catch (e) {
-            // maybe parse error
-            controller.error(e);
+            console.log({ e });
           }
         }
       }

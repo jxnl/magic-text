@@ -56,20 +56,8 @@ export default function Home() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-
-      // throw out data that looks like date
-      // 2023-02-15 22:53:24.667388
-      const regex = new RegExp(
-        "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}).(\\d{6})"
-      );
-
-      if (regex.test(chunkValue)) {
-        console.log("skipping date", chunkValue);
-        continue;
-      } else {
-        _fillText += chunkValue;
-        setSummary(_fillText.trim());
-      }
+      _fillText += chunkValue;
+      setSummary(_fillText.trim());
     }
 
     setLoading(false);
