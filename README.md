@@ -1,8 +1,6 @@
 # [Magic Text](https://magic-text-gamma.vercel.app/)
 
-Nextjs demo of applying gpt powered text brushes to a text input field, powered by openai's gpt and vercel's edge functions. This work would not be possible without [Hassan El Mghari](https://twitter.com/nutlope) has put into [TwitterBio](https://github.com/Nutlope/twitterbio) and explaining the streaming components. 
-
-This is also maybe a week days of learning javascript and about a day's work. I have a lot to learn about organizing javascript code so please point it out if you have the time.
+Its a collection of demostrations I've made that use GPT and nextjs, please check it out and give some feedback!
 
 # Development 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
