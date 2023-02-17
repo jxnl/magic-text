@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import TitleCard from "../components/TitleCard";
 import { makePrompt, exampleSchema } from "./prompt";
 
 export default function Home() {
@@ -84,24 +84,17 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        <Link href="/">Magic</Link> Survey by{" "}
-        <a
-          className="underline-offset-8 underline"
-          href="https://jxnl.co/contact"
-        >
-          Jason
-        </a>
-      </h1>
-      <p className="text-md text-gray-600 my-6">
-        Input a json schema and the magic will fill in the data by asking
+    <>
+      <TitleCard
+        title="Survey"
+        description="Input a json schema and the magic will fill in the data by asking
         questions and setting values using the SET command. This set command
         manipulates the a json object in memory called `profile` feel free to
         inspect and log this object. One can imagine this form of thinking and
         action can be used to build a chatbot or other conversational AI that
-        can change the state of the browser session in more complex ways.
-      </p>
+        can change the state of the browser session in more complex ways."
+      />
+
       <textarea
         value={JSON.stringify(schema, null, 2)}
         onChange={(e) => {
@@ -146,6 +139,6 @@ export default function Home() {
       >
         {JSON.stringify(profile, null, 2)}
       </SyntaxHighlighter>
-    </div>
+    </>
   );
 }

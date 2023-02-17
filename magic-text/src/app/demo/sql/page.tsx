@@ -1,14 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import TitleCard from "../components/TitleCard";
 import { makePrompt } from "./prompt";
 
-export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [schema, setSchema] = useState(
-    `
+const sampleSchema = `
 CREATE TABLE Customers (
     customer_id INT PRIMARY KEY,
     first_name VARCHAR(50),
@@ -27,22 +24,22 @@ CREATE TABLE Orders (
 
 CREATE TABLE Products (
     product_id INT PRIMARY KEY,
-    product_name VARCHAR(100)`.trim()
-  );
-  const [sqlQuery, setQuery] = useState("SELECT Count(1) FROM Customers;");
-  const [question, setQuestion] = useState(
-    "What is the total number of customers?"
-  );
+    product_name VARCHAR(100)`.trim();
+
+const sampleQuery = `SELECT Count(1) FROM Customers;`;
+
+export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const [schema, setSchema] = useState(sampleSchema);
+  const [sqlQuery, setQuery] = useState(sampleQuery);
+  const questionRef = useRef<any>();
 
   const generateFillin = async (e: any) => {
     e.preventDefault();
 
+    const prompt = makePrompt(questionRef.current!.value, schema, sqlQuery);
+
     setLoading(true);
-
-    const prompt = makePrompt(question, schema, sqlQuery);
-
-    var _fillText = "";
-
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -68,7 +65,7 @@ CREATE TABLE Products (
     const reader = data.getReader();
     const decoder = new TextDecoder();
     let done = false;
-
+    var _fillText = "";
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
@@ -89,22 +86,17 @@ CREATE TABLE Products (
   };
 
   return (
-    <div>
-      <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        <Link href="/">Magic</Link> SQL by{" "}
-        <a
-          className="underline-offset-8 underline"
-          href="https://jxnl.co/contact"
-        >
-          Jason
-        </a>
-      </h1>
-      <p className="text-md text-gray-600 my-6">
-        Use the default schema or add your own and ask questions in plain
-        englihs and let Magic SQL do its best to explain the answer. You can
-        also Magic to add tables or columns and the schema will automatically
-        update.
-      </p>
+    <>
+      <TitleCard
+        title="SQL"
+        description="Input a json schema and the magic will fill in the data by asking
+        questions and setting values using the SET command. This set command
+        manipulates the a json object in memory called `profile` feel free to
+        inspect and log this object. One can imagine this form of thinking and
+        action can be used to build a chatbot or other conversational AI that
+        can change the state of the browser session in more complex ways."
+      />
+
       <textarea
         value={schema}
         onChange={(e) => setSchema(e.target.value)}
@@ -124,12 +116,11 @@ CREATE TABLE Products (
 
       <div className="flex mt-6 space-x-3">
         <input
-          value={question}
+          type="text"
+          ref={questionRef}
+          placeholder="how many customers do we have?"
           disabled={loading}
           className="flex-1 rounded-lg text-md border-gray-00  text-gray-900 bg-gray-50 p-2 border-2 disabled:opacity-60"
-          onChange={(e) => {
-            setQuestion(e.target.value);
-          }}
         />
         <button
           onClick={(e) => generateFillin(e)}
@@ -139,6 +130,6 @@ CREATE TABLE Products (
           Ask Magic
         </button>
       </div>
-    </div>
+    </>
   );
 }

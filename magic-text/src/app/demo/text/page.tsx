@@ -4,6 +4,7 @@ import { SyntheticEvent, useState } from "react";
 import { PromptType, makePrompt } from "./prompt";
 import { BrushMenu, Warning, minSelectionLength } from "./components";
 import Link from "next/link";
+import TitleCard from "../components/TitleCard";
 
 export default function Home() {
   const [textBox, setTextBox] = useState(
@@ -119,22 +120,16 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        <Link href="/">Magic</Link> Text by{" "}
-        <a
-          className="underline-offset-8 underline"
-          href="https://jxnl.co/contact"
-        >
-          Jason
-        </a>
-      </h1>
-      <p className="text-md text-gray-600 my-6">
-        Simply highlight any text in the text area, and you{"'"}ll be able to
+    <>
+      <TitleCard
+        title="Text"
+        description="
+        Simply highlight any text in the text area, and you'll be able to
         see the brush options in real time. No need to wait for any loading
         spinners, as Magic will immediately begin rewriting your selection to
         your specifications.
-      </p>
+        "
+      />
       <textarea
         value={textBox}
         onChange={(e) => setTextBox(e.target.value)}
@@ -151,6 +146,6 @@ export default function Home() {
         isOpen={menuOpen}
       />
       <Warning isWarn={warn} />
-    </div>
+    </>
   );
 }

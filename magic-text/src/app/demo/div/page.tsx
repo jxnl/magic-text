@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import parse from "html-react-parser";
 import { makePrompt, exampleQuestion } from "./prompt";
 import Script from "next/script";
+import TitleCard from "../components/TitleCard";
 
 export default function Home(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -62,19 +62,12 @@ export default function Home(): JSX.Element {
 
   return (
     <div>
-      <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        <Link href="/">Magic</Link> Div by{" "}
-        <a
-          className="underline-offset-8 underline"
-          href="https://jxnl.co/contact"
-        >
-          Jason
-        </a>
-      </h1>
-      <p className="text-md text-gray-600 my-6">
-        Magic Div is a tool for generating HTML from a natural language demand.
+      <TitleCard
+        title="Div"
+        description="Magic Div is a tool for generating HTML from a natural language demand.
         It is a work in progress, but you can try it out below.
-      </p>
+        "
+      />
 
       <SyntaxHighlighter
         wrapLongLines={true}

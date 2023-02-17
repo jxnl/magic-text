@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Youtube } from "./youtube";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TitleCard from "../components/TitleCard";
 
 // regex to check if url is youtube link
 const regex = new RegExp(
@@ -33,9 +33,7 @@ export default function Home() {
       <a
         className="no-underline hover:opacity-80"
         onClick={() => {
-          console.log("href", href);
           setTs(_ts);
-          console.log("setting ts", _ts);
         }}
       >
         #
@@ -152,7 +150,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <>
       <ToastContainer
         position="top-right"
         autoClose={1000}
@@ -162,24 +160,16 @@ export default function Home() {
         rtl={false}
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />
-      <h1 className="sm:text-6xl text-lg max-w-2xl font-bold text-slate-900 items-center">
-        <Link href="/">Magic</Link> Youtube by{" "}
-        <a
-          className="underline-offset-8 underline"
-          href="https://jxnl.co/contact"
-        >
-          Jason
-        </a>
-      </h1>
-      <p className="text-md text-gray-600 my-6">
+      <TitleCard
+        title="Youtube"
+        description="
         Input a youtube video url and get a summary in markdown format. If it
         does not have a transcript, it will use whisper but it may be less
-        accurate than the transcript and will take longer to generate. Click the{" "}
-        {"#"} to jump to the timestamp in the youtube video. Click Copy to copy
+        accurate than the transcript and will take longer to generate. 
+        Click the # to jump to the timestamp in the youtube video. Click Copy to copy
         the summary to your clipboard as markdown.
-      </p>
+        "
+      />
       {start && (
         <>
           <hr className="h-px my-10 bg-gray-200 border-0"></hr>
@@ -244,6 +234,6 @@ export default function Home() {
           </button>
         )}
       </div>
-    </div>
+    </>
   );
 }
