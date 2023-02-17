@@ -16,6 +16,7 @@ const regex = new RegExp(
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState("");
+  const [shortened, setShortened] = useState(false);
   const [start, setStart] = useState(false);
   const [url, setUrl] = useState("");
   const [ts, setTs] = useState(0);
@@ -42,7 +43,64 @@ export default function Home() {
     );
   }
 
-  const generateFillin = async (e: any) => {
+  const generateShortened = async (e: any) => {
+    e.preventDefault;
+
+    if (summary.length == 0) {
+      toast.error("There needs needs to be a summary first.");
+    }
+
+    if (shortened) {
+      toast.error("Already shortened.");
+      return;
+    }
+
+    setStart(true);
+    setLoading(true);
+    setShortened(true);
+    const content = summary;
+    const response = await fetch("/api/shorten", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content,
+        use_sse: true,
+      }),
+    });
+    console.log("Edge function returned.");
+    console.log(response);
+
+    if (!response.ok) {
+      setLoading(false);
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    var _fillText = "";
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      _fillText += chunkValue;
+      setSummary(_fillText.trim());
+    }
+
+    toast.success("Shortening completed!");
+    setLoading(false);
+  };
+
+  const generateSummary = async (e: any) => {
     e.preventDefault;
 
     // use regex to check if url is youtube linke
@@ -53,6 +111,7 @@ export default function Home() {
 
     setStart(true);
     setLoading(true);
+    setShortened(false);
     const response = await fetch("/api/summary", {
       method: "POST",
       headers: {
@@ -153,7 +212,7 @@ export default function Home() {
           }}
         />
         <button
-          onClick={(e) => generateFillin(e)}
+          onClick={(e) => generateSummary(e)}
           disabled={loading}
           className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
         >
@@ -173,6 +232,17 @@ export default function Home() {
         >
           Copy
         </button>
+        {start && (
+          <button
+            disabled={loading}
+            onClick={(e) => {
+              generateShortened(e);
+            }}
+            className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
+          >
+            Shorten
+          </button>
+        )}
       </div>
     </div>
   );
