@@ -2,9 +2,10 @@
 
 import React from "react";
 
-function extract_video_id(url: string) {
-  const regex = /(?:v=)([a-zA-Z0-9_-]+)/;
-  const videoId = url.match(regex);
+function extractVideoId(url: string) {
+  const videoId = url.match(
+    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
+  );
   if (videoId === null) {
     return null;
   } else {
@@ -15,7 +16,7 @@ function extract_video_id(url: string) {
 export function Youtube(props: { url: string; ts: Number }) {
   const url = props.url;
   const ts = props.ts;
-  const videoId = extract_video_id(url);
+  const videoId = extractVideoId(url);
 
   if (videoId === null) {
     return <div>Invalid youtube url</div>;

@@ -35,7 +35,7 @@ async function Summary(payload: StreamPayload) {
       // callback
       function onParse(event: ParsedEvent | ReconnectInterval) {
         if (event.type === "event") {
-          const data = event.data;
+          const data = event.data.trim();
           if (data === "[DONE]") {
             controller.close();
             return;
