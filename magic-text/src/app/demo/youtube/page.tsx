@@ -175,11 +175,7 @@ export default function Home() {
           <hr className="h-px my-10 bg-gray-200 border-0"></hr>
           <Youtube url={url} ts={ts} />
           <hr className="h-px my-10 bg-gray-200 border-0"></hr>
-          <article
-            className="prose prose-headings:text-2xl 
-      prose-blue
-      "
-          >
+          <article className="prose prose-headings:text-2xl prose-blue w-full border-red-100">
             <ReactMarkdown
               components={{
                 a: LinkRenderer,
