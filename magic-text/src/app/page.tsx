@@ -77,8 +77,8 @@ export default function Home() {
         />
         <MagicLink
           name="Survey"
-          desc="Magic survey takes a json schema and defines conversational agent that helps users and complete 
-         survery and sets the data into a object in the browser."
+          desc="Magic survey takes a json schema and defines conversational agent 
+            that helps users and complete survey and sets the data into a object in the browser."
         />
       </div>
     </div>
