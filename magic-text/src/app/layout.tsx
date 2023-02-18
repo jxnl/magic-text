@@ -1,5 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
+import { AnalyticsWrapper } from "./demo/components/analytics";
 
 function Header() {
   return (
@@ -65,6 +66,7 @@ export default function RootLayout({
         <Header />
 
         <div className="min-h-screen">{children}</div>
+        <AnalyticsWrapper />
         <footer>
           <div>
             <p className="border-t-2 py-2 text-sm max-w-2xl text-gray-500 justify-center">
