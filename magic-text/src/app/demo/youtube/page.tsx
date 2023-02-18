@@ -13,11 +13,24 @@ const regex = new RegExp(
   "^(https?:\\/\\/)?((w){3}.)?youtu(be|.be)?(\\.com)?\\/.+"
 );
 
+function Button(props: { loading: boolean; onClick: any; name: string }) {
+  const { loading, onClick, name } = props;
+  return (
+    <button
+      disabled={loading}
+      onClick={onClick}
+      className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
+    >
+      {name}
+    </button>
+  );
+}
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState("");
   const [shortened, setShortened] = useState(false);
-  const [start, setStart] = useState(false);
+  const [started, setStart] = useState(false);
   const [url, setUrl] = useState("");
   const [ts, setTs] = useState(0);
 
@@ -170,7 +183,7 @@ export default function Home() {
         the summary to your clipboard as markdown.
         "
       />
-      {start && (
+      {started ? (
         <>
           <hr className="h-px my-10 bg-gray-200 border-0"></hr>
           <Youtube url={url} ts={ts} />
@@ -186,7 +199,7 @@ export default function Home() {
           </article>
           <hr className="h-px my-10 bg-gray-200 border-0"></hr>
         </>
-      )}
+      ) : null}
       <div className="flex mt-6 space-x-3 mb-10">
         <input
           value={url}
@@ -197,38 +210,28 @@ export default function Home() {
             setUrl(e.target.value);
           }}
         />
-        <button
-          onClick={(e) => generateSummary(e)}
-          disabled={loading}
-          className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
-        >
-          Generate
-        </button>
-        <button
-          disabled={loading}
-          onClick={() => {
-            if (summary.length === 0) {
-              toast.error("Please generate a summary first");
-              return;
-            }
-            navigator.clipboard.writeText(summary);
-            toast.success("Copied to clipboard!");
-          }}
-          className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
-        >
-          Copy
-        </button>
-        {start && (
-          <button
-            disabled={loading}
-            onClick={(e) => {
-              generateShortened(e);
+        <Button loading={loading} name="Generate" onClick={generateSummary} />
+        {started ? (
+          <Button
+            name="Copy"
+            loading={loading}
+            onClick={() => {
+              if (summary.length === 0) {
+                toast.error("Please generate a summary first");
+                return;
+              }
+              navigator.clipboard.writeText(summary);
+              toast.success("Copied to clipboard!");
             }}
-            className="flex-none mr-2 rounded-lg px-4 py-2 text-md  font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 border border-gray-200 disabled:opacity-60"
-          >
-            Shorten
-          </button>
-        )}
+          />
+        ) : null}
+        {started ? (
+          <Button
+            loading={loading}
+            name="Shorten"
+            onClick={generateShortened}
+          />
+        ) : null}
       </div>
     </>
   );
