@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model summary {
+  id               Int       @id @default(autoincrement())
+  url              String?   @db.VarChar
+  video_id         String?   @db.VarChar
+  created_at       DateTime? @db.Timestamp(6)
+  summary_markdown String?   @db.VarChar
+
+  @@index([url], map: "ix_summary_url")
+  @@index([video_id], map: "ix_summary_video_id")
+}
