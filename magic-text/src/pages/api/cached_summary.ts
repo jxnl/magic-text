@@ -22,8 +22,7 @@ export default async function handler(
     });
 
     if (!resp) {
-      res.status(404).json({ message: "Not Found" });
-    }
+      res.status(500).send({ error: 'failed to fetch data' })
 
     res.status(200).json(resp);
   }
