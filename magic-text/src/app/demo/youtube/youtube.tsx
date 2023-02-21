@@ -2,7 +2,7 @@
 
 import React from "react";
 
-function extractVideoId(url: string) {
+export function extractVideoId(url: string) {
   const videoId = url.match(
     /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
   );

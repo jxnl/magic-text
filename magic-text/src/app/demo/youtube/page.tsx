@@ -1,12 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { Youtube } from "./youtube";
+import { extractVideoId, Youtube } from "./youtube";
+import { useSearchParams } from "next/navigation";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TitleCard from "../components/TitleCard";
+
+async function cachedSummary(videoId: string) {
+  console.log("checking for cached summary");
+
+  // check if there is a cached summary with ?v=videoId
+  const response = fetch("/api/cached_summary?v=" + videoId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
+  return response;
+}
 
 // regex to check if url is youtube link
 const regex = new RegExp(
@@ -136,6 +153,8 @@ export default function Home() {
     console.log(response);
 
     if (!response.ok) {
+      toast.error("Error generating summary.");
+      setLoading(false);
       throw new Error(response.statusText);
     }
 
@@ -161,6 +180,22 @@ export default function Home() {
     toast.success("Summary completed!");
     setLoading(false);
   };
+
+  const videoId = useSearchParams().get("v");
+
+  useEffect(() => {
+    if (videoId) {
+      console.log("videoId", videoId);
+      setUrl("https://www.youtube.com/watch?v=" + videoId);
+      setStart(true);
+      // check if there is a cached summary with ?v=videoId
+      cachedSummary(videoId).then((res) => {
+        setSummary(res.summary_markdown);
+      });
+    } else {
+      console.log("no videoId");
+    }
+  }, []);
 
   return (
     <>
@@ -218,6 +253,23 @@ export default function Home() {
               }
               navigator.clipboard.writeText(summary);
               toast.success("Copied to clipboard!");
+            }}
+          />
+        ) : null}
+        {started ? (
+          <Button
+            name="Share"
+            loading={loading}
+            onClick={() => {
+              if (summary.length === 0) {
+                toast.error("Please generate a summary first");
+                return;
+              }
+              const videoId = extractVideoId(url);
+              navigator.clipboard.writeText(
+                `https://magic.jxnl.co/demo/youtube?v=${videoId}`
+              );
+              toast.success("Link copied to clipboard!");
             }}
           />
         ) : null}
