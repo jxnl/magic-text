@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@next/font": "13.1.6",
+    "@prisma/client": "^4.10.1",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
@@ -20,6 +22,7 @@
     "framer-motion": "^9.0.1",
     "html-react-parser": "^3.0.8",
     "next": "13.1.6",
+    "prisma": "^4.10.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.5",
