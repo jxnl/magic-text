@@ -14,6 +14,7 @@ async function cachedSummary(videoId: string) {
 
   // check if there is a cached summary with ?v=videoId
   const response = fetch("/api/cached_summary?v=" + videoId, {
+    next: { revalidate: 0 },
     method: "GET",
     headers: {
       "Content-Type": "application/json",
