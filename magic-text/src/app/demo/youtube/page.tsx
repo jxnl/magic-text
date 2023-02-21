@@ -183,6 +183,18 @@ export default function Home() {
         the summary to your clipboard as markdown.
         "
       />
+      <div className="flex mt-6 space-x-3 mb-10">
+        <input
+          value={url}
+          disabled={loading}
+          placeholder="https://www.youtube.com/watch?v=12345678"
+          className="flex-1 rounded-lg text-md border-gray-00  text-gray-900 bg-gray-50 p-2 border-2 disabled:opacity-60"
+          onChange={(e) => {
+            setUrl(e.target.value);
+          }}
+        />
+        <Button loading={loading} name="Generate" onClick={generateSummary} />
+      </div>
       {started ? (
         <>
           <hr className="h-px my-10 bg-gray-200 border-0"></hr>
@@ -201,16 +213,6 @@ export default function Home() {
         </>
       ) : null}
       <div className="flex mt-6 space-x-3 mb-10">
-        <input
-          value={url}
-          disabled={loading}
-          placeholder="https://www.youtube.com/watch?v=12345678"
-          className="flex-1 rounded-lg text-md border-gray-00  text-gray-900 bg-gray-50 p-2 border-2 disabled:opacity-60"
-          onChange={(e) => {
-            setUrl(e.target.value);
-          }}
-        />
-        <Button loading={loading} name="Generate" onClick={generateSummary} />
         {started ? (
           <Button
             name="Copy"
