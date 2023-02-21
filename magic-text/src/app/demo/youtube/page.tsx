@@ -175,13 +175,7 @@ export default function Home() {
       />
       <TitleCard
         title="Youtube"
-        description="
-        Input a youtube video url and get a summary in markdown format. If it
-        does not have a transcript, it will use whisper but it may be less
-        accurate than the transcript and will take longer to generate. 
-        Click the # to jump to the timestamp in the youtube video. Click Copy to copy
-        the summary to your clipboard as markdown.
-        "
+        description="Turn any youtube video into study notes. Just paste the url and click generate. You can also shorten the copy the markdown or shorten the summary."
       />
       <div className="flex mt-6 space-x-3 mb-10">
         <input
