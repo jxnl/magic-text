@@ -9,6 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TitleCard from "../components/TitleCard";
 
+export const dynamic = "forced-dynamic";
+
 async function cachedSummary(videoId: string) {
   console.log("checking for cached summary");
 
