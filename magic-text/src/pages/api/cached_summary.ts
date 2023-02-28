@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const dynamic = "forced-dynamic";
+export const dynamic = "force-dynamic";
 
 const prisma = new PrismaClient();
 
