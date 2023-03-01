@@ -9,12 +9,16 @@ export default function Head() {
       <meta name="description" content={desc} />
       <meta property="og:description" content={desc} />
       <meta property="og:title" content={desc} />
+      <meta
+        property="og:image"
+        content="https://www.theindianwire.com/wp-content/uploads/2017/08/youtube_logo_new_official_1504077880072.jpg"
+      />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={desc} />
       <meta name="twitter:card" content="summary_large_image"></meta>
       <meta
         name="twitter:image"
-        content="https://cdn.discordapp.com/attachments/990816889657778196/1071941320052047953/CJ_EatinStarz_knight_Hacking_on_computer_matrix_071dc515-5af4-4911-a45f-2c2638863719.png"
+        content="https://www.theindianwire.com/wp-content/uploads/2017/08/youtube_logo_new_official_1504077880072.jpg"
       ></meta>
     </>
   );
