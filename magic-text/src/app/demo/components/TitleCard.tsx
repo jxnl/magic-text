@@ -16,7 +16,15 @@ export default function TitleCard(props: {
           Jason
         </a>
       </h1>
-      <p className="text-md text-gray-600 my-6">{description}</p>
+      <p className="text-md text-gray-600 my-6">
+        {description} If you have any suggestions send me an{" "}
+        <a
+          className="underline hover:opacity-70"
+          href="mailto:jason+magicfeedback@jxnl.co"
+        >
+          email
+        </a>
+      </p>
     </>
   );
 }
