@@ -25,10 +25,12 @@ export default async function handler(
 
     if (!resp) {
       res.status(500).send({ error: "failed to fetch data" });
+      return;
     }
 
     res.status(200).json(resp);
   } else {
     res.status(500).send({ error: "method not allowed" });
+    return;
   }
 }
