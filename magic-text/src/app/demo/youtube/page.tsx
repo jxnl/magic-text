@@ -156,7 +156,7 @@ export default function Home() {
       />
       <TitleCard
         title="Youtube"
-        description="Turn any youtube video into study notes. Just paste the url and click generate. You can also shorten the copy the markdown or shorten the summary."
+        description="Turn any youtube video into study notes. Just paste the url and click generate. If you click # in the summary, it will take you to that timestamp in the video. Click share to share the summary with your friends."
       />
       <div className="flex mt-6 space-x-3 mb-10">
         <input
