@@ -74,63 +74,6 @@ export default function Home() {
     );
   }
 
-  const generateShortened = async (e: any) => {
-    e.preventDefault;
-
-    if (summary.length == 0) {
-      toast.error("There needs needs to be a summary first.");
-    }
-
-    if (shortened) {
-      toast.error("Already shortened.");
-      return;
-    }
-
-    setStart(true);
-    setLoading(true);
-    setShortened(true);
-    const content = summary;
-    const response = await fetch("/api/shorten", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content,
-        use_sse: true,
-      }),
-    });
-    console.log("Edge function returned.");
-    console.log(response);
-
-    if (!response.ok) {
-      setLoading(false);
-      throw new Error(response.statusText);
-    }
-
-    // This data is a ReadableStream
-    const data = response.body;
-    if (!data) {
-      return;
-    }
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-
-    var _fillText = "";
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      _fillText += chunkValue;
-      setSummary(_fillText.trim());
-    }
-
-    toast.success("Shortening completed!");
-    setLoading(false);
-  };
-
   const generateSummary = async (e: any) => {
     e.preventDefault;
 
@@ -274,13 +217,6 @@ export default function Home() {
               );
               toast.success("Link copied to clipboard!");
             }}
-          />
-        ) : null}
-        {started ? (
-          <Button
-            loading={loading}
-            name="Shorten"
-            onClick={generateShortened}
           />
         ) : null}
       </div>
