@@ -12,9 +12,14 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
+export interface Message {
+  role: "user";
+  content: string;
+}
+
 interface OpenAIStreamPayload {
   model: string;
-  prompt: string;
+  messages: Message[];
   temperature: number;
   top_p: number;
   frequency_penalty: number;
@@ -31,7 +36,8 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
-  const res = await fetch("https://api.openai.com/v1/completions", {
+  console.log("payload", payload);
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
@@ -39,6 +45,10 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     method: "POST",
     body: JSON.stringify(payload),
   });
+
+  if (!res.ok) {
+    throw new Error(`OpenAI API error: ${res.statusText}`);
+  }
 
   const stream = new ReadableStream({
     async start(controller) {
@@ -53,7 +63,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
           }
           try {
             const json = JSON.parse(data);
-            const text = json.choices[0].text;
+            const text = json.choices[0].delta?.content || "";
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return;
@@ -92,8 +102,13 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   const payload: OpenAIStreamPayload = {
-    model: "text-davinci-003",
-    prompt,
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
     temperature: 0.2,
     top_p: 1,
     frequency_penalty: 0,
