@@ -1,17 +1,7 @@
 // react component to render a youtube video player
 
 import React from "react";
-
-export function extractVideoId(url: string) {
-  const videoId = url.match(
-    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
-  );
-  if (videoId === null) {
-    return null;
-  } else {
-    return videoId[1];
-  }
-}
+import { extractVideoId } from "./utils";
 
 export function Youtube(props: { url: string; ts: Number }) {
   const url = props.url;

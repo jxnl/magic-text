@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { extractVideoId, Youtube } from "./youtube";
 import { useSearchParams } from "next/navigation";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -12,7 +11,9 @@ import {
   parseChaptersFromSummary,
   cachedSummary,
   isValidYoutubeUrl,
+  extractVideoId,
 } from "./utils";
+import { Youtube } from "./youtube";
 
 export const dynamic = "force-dynamic";
 

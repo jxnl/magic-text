@@ -40,6 +40,7 @@ export async function cachedSummary(videoId: string) {
 
 /**
  * Checks if a url is a valid youtube url
+ * @param url - url to check
  */
 export function isValidYoutubeUrl(url: string) {
   const linkRegex = new RegExp(
@@ -47,4 +48,20 @@ export function isValidYoutubeUrl(url: string) {
   );
 
   return linkRegex.test(url);
+}
+
+/**
+ * Extracts video id from youtube url
+ * @param url - url to extract video id from
+ * @returns
+ */
+export function extractVideoId(url: string) {
+  const videoId = url.match(
+    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
+  );
+  if (videoId === null) {
+    return null;
+  } else {
+    return videoId[1];
+  }
 }
