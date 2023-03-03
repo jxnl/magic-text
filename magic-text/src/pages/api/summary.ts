@@ -21,6 +21,7 @@ async function Summary(payload: StreamPayload) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
+  console.log(`Fetching ${payload.url}`);
   const res = await fetch("https://youtube-markdown.fly.dev/youtube_markdown", {
     headers: {
       "Content-Type": "application/json",
