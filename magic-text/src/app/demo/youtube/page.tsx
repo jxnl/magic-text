@@ -199,7 +199,12 @@ export default function Home() {
                 }
 
                 const chapters = parseChaptersFromSummary(summary);
-                navigator.clipboard.writeText(chapters);
+                navigator.clipboard.writeText(
+                  chapters +
+                    `\n\nPowered by https://magic.jxnl.co/demo/youtube?v=${extractVideoId(
+                      url
+                    )}`
+                );
                 toast.success("Copied to clipboard!");
               }}
             />
