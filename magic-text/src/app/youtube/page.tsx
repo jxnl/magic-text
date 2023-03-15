@@ -95,7 +95,7 @@ export default function Example() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setSummary((prev) => (prev + chunkValue).trim());
+      setSummary((prev) => prev + chunkValue);
     }
 
     toast.success("Summary completed!");
@@ -164,7 +164,7 @@ export default function Example() {
           {started ? <Youtube url={url} ts={ts} /> : null}
         </div>
       </div>
-      {started ? (
+      {started && summary.length > 0 ? (
         <>
           <Divider summary={summary} url={url} />
           <article className="prose prose-red w-full border-red-100 mx-auto px-3 lg:px-0">
@@ -173,9 +173,7 @@ export default function Example() {
                 a: LinkRenderer,
               }}
             >
-              {summary
-                .replace("Overview:", "\n\nOverview:")
-                .replace(".#", ".\n\n#")}
+              {summary}
             </ReactMarkdown>
           </article>
           <Divider summary={summary} url={url} />
