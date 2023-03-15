@@ -8,21 +8,21 @@ import {
 
 export const navigation = [
   {
-    name: "Text Editor",
-    href: "/demo/text",
-    desc: "Instantly customize highlighted text with brush options in real-time.",
-    icon: DocumentIcon,
-  },
-  {
     name: "Youtube",
     href: "/youtube",
     desc: "Get video summary in markdown format, with or without transcript.",
     icon: FilmIcon,
   },
   {
+    name: "Text Editor",
+    href: "/demo/text",
+    desc: "Instantly customize highlighted text with brush options in real-time.",
+    icon: DocumentIcon,
+  },
+  {
     name: "Data Analyst",
     href: "/demo/sql",
-    desc: "Ask plain English questions, get explanations, and update schemas.",
+    desc: "Ask plain English questions with a SQL Schema and get queries, explanations, and update schemas.",
     icon: CircleStackIcon,
   },
   {
