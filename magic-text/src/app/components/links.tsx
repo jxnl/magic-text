@@ -14,16 +14,16 @@ export const navigation = [
     icon: FilmIcon,
   },
   {
-    name: "Text Editor",
-    href: "/demo/text",
-    desc: "Instantly customize highlighted text with brush options in real-time.",
-    icon: DocumentIcon,
-  },
-  {
     name: "Data Analyst",
-    href: "/demo/sql",
+    href: "/data",
     desc: "Ask plain English questions with a SQL Schema and get queries, explanations, and update schemas.",
     icon: CircleStackIcon,
+  },
+  {
+    name: "Text Brushs",
+    href: "/text",
+    desc: "Instantly customize highlighted text with brush options in real-time.",
+    icon: DocumentIcon,
   },
   {
     name: "Tailwind CSS",
