@@ -173,7 +173,9 @@ export default function Example() {
                 a: LinkRenderer,
               }}
             >
-              {summary.replace("Overview:", "\n\nOverview:")}
+              {summary
+                .replace("Overview:", "\n\nOverview:")
+                .replace(".#", ".\n\n#")}
             </ReactMarkdown>
           </article>
           <Divider summary={summary} url={url} />

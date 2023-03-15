@@ -12,7 +12,9 @@ export default function Divider({
   summary: string;
   url: string;
 }) {
-  let summaryClean = summary.replace("Overview:", "\n\nOverview:");
+  let summaryClean = summary
+    .replace("Overview:", "\n\nOverview:")
+    .replace(".#", ".\n\n#");
   return (
     <div className="relative py-10">
       <div className="absolute inset-0 flex items-center" aria-hidden="true">
