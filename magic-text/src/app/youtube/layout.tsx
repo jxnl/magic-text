@@ -8,12 +8,20 @@ export const metadata = {
   openGraph: {
     title,
     description,
+    images: [
+      {
+        url: "/youtube.png",
+        width: 800,
+        height: 600,
+      },
+    ],
   },
   twitter: {
     cardType: "summary_large_image",
     title,
     description,
     creator: "@jxnlco",
+    images: ["/youtube.png"],
   },
 };
 
