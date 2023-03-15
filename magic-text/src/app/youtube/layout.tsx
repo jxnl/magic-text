@@ -21,7 +21,7 @@ export const metadata = {
     title,
     description,
     creator: "@jxnlco",
-    images: ["/youtube.png"],
+    images: ["https://magic.jxnl.co/youtube.png"],
   },
 };
 
