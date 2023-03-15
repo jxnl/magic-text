@@ -22,7 +22,8 @@ export default function Example() {
               >
                 email
               </a>{" "}
-              me if you have any questions.
+              me if you have any questions. Click any of these links to get
+              started.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
