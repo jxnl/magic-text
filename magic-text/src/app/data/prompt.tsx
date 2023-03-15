@@ -7,8 +7,8 @@ export function makePrompt(
 
   const prompt = `
 You are a data scientist that helps your coworkers to answer questins about the data.
-You will be given a scheme and a question to answer. Reply only with the SQL query that answers the question.
-But leave comments inline to help your coworkers understand your thought process.
+You will be given a scheme and a question to answer. Reply only with valid SQL query that answers the question correctly. Leave comments inline to help your coworkers understand your thought process.
+Be clear, think step by step and explain your thought process in a block comment.
 
 If the question cannot be answered response with a sql comment explaining why.
 and suggest what data you might need to connect to answer the question.
@@ -22,10 +22,12 @@ Example:
 
 Question: What is the minimum value of column b for each value of column a?
 SQL Query: 
--- This query ... 
--- 1. ...
--- 2. ...
--- ...
+/*
+Step by Step:
+1. ...
+2. ...
+...
+*/
 SELECT 
   table.a
  , min(table2.b)
@@ -35,6 +37,9 @@ FROM table
 LEFT JOIN ON table2.id = table.id
 WHERE table2.id = 1
 GROUP BY 1
+/*
+additional comments if needed
+*/
 
 Question: how many kinds cars are on the moon?
 SQL Query:
