@@ -95,7 +95,7 @@ export default function Example() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setSummary((prev) => (prev + " " + chunkValue).trim());
+      setSummary((prev) => (prev + chunkValue).trim());
     }
 
     toast.success("Summary completed!");
