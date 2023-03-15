@@ -16,12 +16,11 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="flex max-w-3xl mx-auto flex-col items-left py-2 p-2">
+      <body className="bg-white">
         <Header />
-
-        <main className="min-h-screen">{children}</main>
-        <AnalyticsWrapper />
+        {children}
         <Footer />
+        <AnalyticsWrapper />
       </body>
     </html>
   );
