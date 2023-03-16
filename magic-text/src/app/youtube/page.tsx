@@ -110,6 +110,8 @@ export default function Example() {
   useEffect(() => {
     if (videoId) {
       setUrl("https://www.youtube.com/watch?v=" + videoId);
+      // @ts-ignore
+      urlRef.current.value = "https://www.youtube.com/watch?v=" + videoId;
       setStart(true);
       cachedSummary(videoId).then((res) => {
         setSummary(res.summary_markdown);
