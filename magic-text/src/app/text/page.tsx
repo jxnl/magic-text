@@ -126,9 +126,8 @@ export default function Home() {
               Magic Text Brushes
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Bringing together the worlds of video content and note-taking,
-              Magic YouTube is the ultimate tool for extracting knowledge from
-              online resources.
+              Select a text and click a brush to generate a fill-in-the-blank
+              style completion.
             </p>
           </div>
 
