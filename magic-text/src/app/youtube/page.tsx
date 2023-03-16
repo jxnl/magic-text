@@ -124,7 +124,19 @@ export default function Example() {
       <ToastContainer />
       <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
         <div className="px-6 pt-10 pb-24 sm:pb-32 lg:col-span-7 lg:px-0 lg:pt-20 lg:pb-56 xl:col-span-6">
-          <div className="mx-auto max-w-2xl lg:mx-0">
+          <div className="hidden sm:mb-8 sm:flex sm:justify-left">
+            <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+              Check out the chrome extension.{" "}
+              <a
+                href="https://github.com/jxnl/youtube-summary-chrome"
+                className="font-semibold text-red-600"
+              >
+                <span className="absolute inset-0" aria-hidden="true" />
+                Github <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div className="max-w-2xl lg:mx-0">
             <h1 className="mt-12 text-4xl font-bold tracking-tight text-gray-900 sm:mt-10 sm:text-6xl">
               Youtube University
             </h1>
