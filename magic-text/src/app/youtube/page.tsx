@@ -113,8 +113,16 @@ export default function Example() {
       // @ts-ignore
       urlRef.current.value = "https://www.youtube.com/watch?v=" + videoId;
       setStart(true);
+      setLoading(true);
       cachedSummary(videoId).then((res) => {
-        setSummary(res.summary_markdown);
+        const { summary_markdown } = res;
+        if (summary_markdown) {
+          toast.info("Cached summary found!");
+          setSummary(summary_markdown);
+        } else {
+          toast.info("No cached summary found.");
+        }
+        setLoading(false);
       });
     }
   }, []);
