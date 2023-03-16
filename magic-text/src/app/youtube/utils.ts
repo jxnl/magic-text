@@ -27,7 +27,7 @@ export function parseChaptersFromSummary(summary: string) {
  */
 export async function cachedSummary(videoId: string) {
   console.log(`Checking for cached summary for ${videoId}...`);
-  return fetch("/api/cached_summary?v=" + videoId, {
+  return await fetch("/api/cached_summary?v=" + videoId, {
     next: { revalidate: 0 },
     method: "GET",
     headers: {
