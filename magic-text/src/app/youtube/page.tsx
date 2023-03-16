@@ -164,7 +164,7 @@ export default function Example() {
           {started ? <Youtube url={url} ts={ts} /> : null}
         </div>
       </div>
-      {started && summary.length > 0 ? (
+      {started && summary && summary.length > 0 ? (
         <>
           <Divider summary={summary} url={url} />
           <article className="prose prose-red w-full border-red-100 mx-auto px-3 lg:px-0">
