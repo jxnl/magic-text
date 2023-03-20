@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Divider from "./components/Divider";
 import Youtube from "./components/Youtube";
 import { cachedSummary, isValidYoutubeUrl } from "./utils";
+import Link from "next/link";
 
 export default function Example() {
   const [started, setStart] = useState(false);
@@ -151,7 +152,14 @@ export default function Example() {
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Bringing together the worlds of video content and note-taking,
               Magic YouTube is the ultimate tool for extracting knowledge from
-              online resources.
+              online resources. If you have any feedback hit me up on{" "}
+              <Link
+                href="https://twitter.com/jxnlco"
+                className="text-red-500 font-bold"
+              >
+                Twitter
+              </Link>
+              .
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <div className="relative">

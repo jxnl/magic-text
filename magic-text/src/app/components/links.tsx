@@ -4,9 +4,17 @@ import {
   CodeBracketIcon,
   DocumentIcon,
   FilmIcon,
+  HomeIcon,
 } from "@heroicons/react/24/outline";
 
 export const navigation = [
+  {
+    name: "Home",
+    href: "/",
+    desc: "Home where you can find the other pages.",
+    icon: HomeIcon,
+    hide: true,
+  },
   {
     name: "Youtube",
     href: "/youtube",
