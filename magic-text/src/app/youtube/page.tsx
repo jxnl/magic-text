@@ -141,7 +141,7 @@ export default function Example() {
                 className="font-semibold text-red-600"
               >
                 <span className="absolute inset-0" aria-hidden="true" />
-                Github <span aria-hidden="true">&rarr;</span>
+                GitHub <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
