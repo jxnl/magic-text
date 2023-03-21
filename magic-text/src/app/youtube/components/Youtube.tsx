@@ -16,9 +16,7 @@ export default function Youtube(props: { url: string; ts: Number }) {
     <div>
       <iframe
         className="aspect-video w-full"
-        src={`https://www.youtube.com/embed/${videoId}?start=${ts}&autoplay=${
-          1 ? ts > 0 : 0
-        }`}
+        src={`https://www.youtube.com/embed/${videoId}?start=${ts}&autoplay=${1}`}
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />

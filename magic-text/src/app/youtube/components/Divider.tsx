@@ -24,6 +24,8 @@ export default function Divider({
       <div className="relative flex justify-center space-x-5">
         <button
           type="button"
+          data-te-toggle="tooltip-donate"
+          title="Support this project so we can keep it free and open source"
           className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
         >
           <ClipboardDocumentIcon
@@ -37,6 +39,7 @@ export default function Divider({
         {summaryClean.length > 0 ? (
           <button
             type="button"
+            title="Shorten the summary again"
             className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
             onClick={shortenFn}
           >
@@ -49,6 +52,7 @@ export default function Divider({
         ) : null}
         <button
           type="button"
+          title="Copy the summary markdown to your clipboard"
           className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           onClick={() => {
             if (summaryClean.length === 0) {
@@ -63,10 +67,11 @@ export default function Divider({
             className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
-          Summary
+          Copy Summary
         </button>
         <button
           type="button"
+          title="Copy the chapters markdown to your clipboard, leave this as a comment on the video to automatically generate chapters for everyone who watches the video"
           className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           onClick={() => {
             if (summaryClean.length === 0) {
@@ -88,10 +93,11 @@ export default function Divider({
             className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
-          Chapters
+          Copy Chapters
         </button>
         <button
           type="button"
+          title="Copy the link to this summary to your clipboard"
           className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           onClick={() => {
             if (summaryClean.length === 0) {

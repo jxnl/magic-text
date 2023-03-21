@@ -29,14 +29,20 @@ export default function Example() {
     const _ts = parseInt(href.match(regex)[1]);
 
     return (
-      <a
-        className="no-underline hover:opacity-80"
-        onClick={() => {
-          setTs(_ts);
-        }}
-      >
-        #
-      </a>
+      <div className="inline relative group">
+        <a
+          className="no-underline hover:opacity-80 cursor-pointer hover:underline"
+          title={`Jump to ${_ts}s`}
+          onClick={() => {
+            setTs(_ts);
+          }}
+        >
+          #
+        </a>
+        <span className="hidden group-hover:block absolute -bottom-10 left-1/2 transform -translate-x-1/2 px-2 py-1 mt-10 text-xs text-white bg-gray-700 rounded">
+          Jump to {_ts}s
+        </span>
+      </div>
     );
   }
 
@@ -203,7 +209,7 @@ export default function Example() {
               online resources. If you have any feedback hit me up on{" "}
               <Link
                 href="https://twitter.com/jxnlco"
-                className="text-red-500 font-bold"
+                className="text-red-500 font-bold hover:underline"
               >
                 Twitter.
               </Link>{" "}
@@ -212,7 +218,7 @@ export default function Example() {
               please consider donating.{" "}
               <Link
                 href="https://www.buymeacoffee.com/jxnl"
-                className="text-red-500 font-bold"
+                className="text-red-500 font-bold hover:underline"
                 target={"_blank"}
               >
                 Buy me a coffee.
