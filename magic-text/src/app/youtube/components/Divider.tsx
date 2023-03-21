@@ -41,7 +41,10 @@ export default function Divider({
             type="button"
             title="Shorten the summary again"
             className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            onClick={shortenFn}
+            onClick={(e) => {
+              toast.success("Shortening the summary again...");
+              shortenFn(e);
+            }}
           >
             <ClipboardDocumentIcon
               className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400"
@@ -60,7 +63,7 @@ export default function Divider({
               return;
             }
             navigator.clipboard.writeText(summaryClean);
-            toast.success("Copied to clipboard!");
+            toast.success("Copied the markdown summary to clipboard!");
           }}
         >
           <ClipboardDocumentIcon
@@ -86,7 +89,9 @@ export default function Divider({
                   url
                 )}`
             );
-            toast.success("Copied to clipboard!");
+            toast.success(
+              `Copied formatted chapters for this YouTube video! Share the love and leave them as a comment to help others add structure to the content`
+            );
           }}
         >
           <ClipboardDocumentListIcon
@@ -108,7 +113,7 @@ export default function Divider({
             navigator.clipboard.writeText(
               `https://magic.jxnl.co/youtube?v=${videoId}`
             );
-            toast.success("Link copied to clipboard!");
+            toast.success("Link copied a shareable magic link to clipboard!");
           }}
         >
           <ArrowUpOnSquareIcon
