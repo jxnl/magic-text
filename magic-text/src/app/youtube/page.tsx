@@ -104,6 +104,54 @@ export default function Example() {
     console.log("Summary completed!", summary);
   };
 
+  const generateShorten = async (e: any) => {
+    e.preventDefault;
+    setLoading(true);
+
+    const response = await fetch("/api/shorten", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: summary,
+      }),
+    });
+    console.log("Edge function returned.");
+    console.log(response);
+
+    if (!response.ok) {
+      toast.error("Error shorttening summary.");
+      setLoading(false);
+      throw new Error(response.statusText);
+    } else {
+      toast.success("Generating Summary!");
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    setSummary("");
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setSummary((prev) => prev + chunkValue);
+    }
+
+    toast.success("Summary shorten completed!");
+    setLoading(false);
+    console.log("Summary shortten completed!", summary);
+  };
+
   // I believe this is the same as componentDidMount
   // if there is a videoId in the url, set the url to the videoId
   // and check if there is a cached summary, if so, set the summary
@@ -157,9 +205,18 @@ export default function Example() {
                 href="https://twitter.com/jxnlco"
                 className="text-red-500 font-bold"
               >
-                Twitter
+                Twitter.
+              </Link>{" "}
+              <br />
+              Transcriptions can get costly for long videos without subtitles,
+              please consider donating.{" "}
+              <Link
+                href="https://www.buymeacoffee.com/jxnl"
+                className="text-red-500 font-bold"
+                target={"_blank"}
+              >
+                Buy me a coffee.
               </Link>
-              .
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <div className="relative">
@@ -196,7 +253,7 @@ export default function Example() {
       </div>
       {started && summary && summary.length > 0 ? (
         <>
-          <Divider summary={summary} url={url} />
+          <Divider summary={summary} url={url} shortenFn={generateShorten} />
           <article className="prose prose-red w-full border-red-100 mx-auto px-3 lg:px-0">
             <ReactMarkdown
               components={{
@@ -206,7 +263,7 @@ export default function Example() {
               {summary}
             </ReactMarkdown>
           </article>
-          <Divider summary={summary} url={url} />
+          <Divider summary={summary} url={url} shortenFn={generateShorten} />
         </>
       ) : null}
     </>
