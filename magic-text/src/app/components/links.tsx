@@ -1,5 +1,5 @@
 import {
-  ChatBubbleLeftRightIcon,
+  ChatBubbleBottomCenterTextIcon,
   CircleStackIcon,
   CodeBracketIcon,
   DocumentIcon,
@@ -14,6 +14,12 @@ export const navigation = [
     desc: "Home where you can find the other pages.",
     icon: HomeIcon,
     hide: true,
+  },
+  {
+    name: "Journal (Beta)",
+    href: "https://jrnl.jxnl.co",
+    desc: "Conversational life coach which writes your daily journal. It has a long term memory of who you are and its designed to help you achieve your goals and live a better life. Asks you thoughtful questions and helps you reflect on your day.",
+    icon: ChatBubbleBottomCenterTextIcon,
   },
   {
     name: "Youtube",
@@ -38,11 +44,5 @@ export const navigation = [
     href: "/demo/div",
     desc: "Create HTML divs with natural language, powered by tailwindcss.",
     icon: CodeBracketIcon,
-  },
-  {
-    name: "Survey",
-    href: "/demo/survey",
-    desc: "Conversational agent helps users complete surveys and store data.",
-    icon: ChatBubbleLeftRightIcon,
   },
 ];
