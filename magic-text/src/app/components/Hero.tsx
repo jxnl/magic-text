@@ -11,15 +11,23 @@ export default function Home() {
             className="font-bold text-blue-600"
             target={"_blank"}
           >
-            OpenAI{" "}
+            OpenAI
           </Link>
-          and{" "}
+          ,
           <Link
             href="https://vercel.com"
             className="font-bold text-blue-600"
             target={"_blank"}
           >
-            Vercel.{" "}
+            Vercel
+          </Link>
+          , and{" "}
+          <Link
+            href="https://modal.com/"
+            className="font-bold text-blue-600"
+            target={"_blank"}
+          >
+            Modal
           </Link>
         </div>
       </div>

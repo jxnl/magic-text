@@ -8,9 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Divider from "./components/Divider";
 import Youtube from "./components/Youtube";
-import { cachedSummary, isValidYoutubeUrl } from "./utils";
+import {
+  cachedSummary,
+  isValidYoutubeUrl,
+  parseChaptersFromSummary,
+} from "./utils";
 import Link from "next/link";
-
 export default function Example() {
   const [started, setStart] = useState(false);
   const [url, setUrl] = useState("");
@@ -29,20 +32,15 @@ export default function Example() {
     const _ts = parseInt(href.match(regex)[1]);
 
     return (
-      <div className="inline relative group">
-        <a
-          className="no-underline hover:opacity-80 cursor-pointer hover:underline"
-          title={`Jump to ${_ts}s`}
-          onClick={() => {
-            setTs(_ts);
-          }}
-        >
-          #
-        </a>
-        <span className="hidden group-hover:block absolute -bottom-10 left-1/2 transform -translate-x-1/2 px-2 py-1 mt-10 text-xs text-white bg-gray-700 rounded">
-          Jump to {_ts}s
-        </span>
-      </div>
+      <a
+        className="no-underline hover:opacity-80 cursor-pointer hover:underline"
+        title={`Jump to ${_ts}s`}
+        onClick={() => {
+          setTs(_ts);
+        }}
+      >
+        #
+      </a>
     );
   }
 
@@ -266,7 +264,13 @@ export default function Example() {
                 a: LinkRenderer,
               }}
             >
-              {summary}
+              {"> Heres a tip! Click the # to jump to the timestamp.\n" +
+                summary +
+                `\n------\n### Sharing Youtube Chapters\nPaste this into the description or comments to add timestamps to any video!. \n\n` +
+                "```\n" +
+                parseChaptersFromSummary(summary) +
+                `\nPowered by Youtube University https://magic.youtube.com/?v=${videoId}\n` +
+                "```"}
             </ReactMarkdown>
           </article>
           <Divider summary={summary} url={url} shortenFn={generateShorten} />
