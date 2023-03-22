@@ -42,6 +42,7 @@ export default function Home() {
           <a
             href="https://www.github.com/jxnl/magic-text"
             target={"_blank"}
+            rel={"noreferrer"}
             className="rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
             <svg
@@ -61,6 +62,7 @@ export default function Home() {
           <a
             href="https://www.buymeacoffee.com/jxnl"
             target={"_blank"}
+            rel={"noreferrer"}
             className="rounded-md bg-yellow-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
           >
             Buy me a coffee
