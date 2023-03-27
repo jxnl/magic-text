@@ -1,3 +1,4 @@
+import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 export default function Home() {
@@ -51,7 +52,7 @@ export default function Home() {
             href="https://www.github.com/jxnl/magic-text"
             target={"_blank"}
             rel={"noreferrer"}
-            className="rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            className="rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
             <svg
               fill="currentColor"
@@ -71,8 +72,9 @@ export default function Home() {
             href="https://www.buymeacoffee.com/jxnl"
             target={"_blank"}
             rel={"noreferrer"}
-            className="rounded-md bg-yellow-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
+            className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
           >
+            <CurrencyDollarIcon className="w-5 h-5 inline mr-1" />
             Buy me a coffee
           </a>
         </div>
