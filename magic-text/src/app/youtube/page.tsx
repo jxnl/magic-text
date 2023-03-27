@@ -269,7 +269,7 @@ export default function Example() {
                 `\n------\n### Sharing Youtube Chapters\nPaste this into the description or comments to add timestamps to any video!. \n\n` +
                 "```\n" +
                 parseChaptersFromSummary(summary) +
-                `\nPowered by Youtube University https://magic.youtube.com/?v=${videoId}\n` +
+                `\nPowered by Youtube University https://magic.jxnl.co/youtube?v=${videoId}\n` +
                 "```"}
             </ReactMarkdown>
           </article>
