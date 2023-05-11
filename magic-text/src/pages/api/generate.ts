@@ -36,11 +36,13 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
-  console.log("payload", payload);
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch("https://oai.hconeai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+      "Helicone-Auth": `Bearer ${process.env.HELICONE_API_KEY ?? ""}`,
+      "Helicone-Cache-Enabled": "true",
+      user: "magic@jxnl.co",
     },
     method: "POST",
     body: JSON.stringify(payload),
