@@ -111,6 +111,7 @@ export default function Home() {
   // I believe this is the same as componentDidMount
   // if there is a videoId in the url, set the url to the videoId
   // and check if there is a cached summary, if so, set the summary
+  // @ts-ignore
   const videoId = useSearchParams().get("v");
   useEffect(() => {
     if (videoId) {
