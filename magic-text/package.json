@@ -23,7 +23,7 @@
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^9.0.1",
     "html-react-parser": "^3.0.8",
-    "next": "^13.3.4",
+    "next": "^13.4.12",
     "prisma": "^4.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
