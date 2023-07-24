@@ -17,7 +17,7 @@ export const metadata = {
     ],
   },
   twitter: {
-    cardType: "summary_large_image",
+    card: "summary_large_image",
     title,
     description,
     creator: "@jxnlco",

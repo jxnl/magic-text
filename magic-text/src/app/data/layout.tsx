@@ -6,7 +6,7 @@ export const metadata = {
   title,
   description,
   twitter: {
-    cardType: "summary_large_image",
+    card: "summary_large_image",
     title,
     description,
     creator: "@jxnlco",
