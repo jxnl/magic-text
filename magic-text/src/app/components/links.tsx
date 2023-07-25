@@ -35,6 +35,12 @@ export const navigation = [
     icon: CircleStackIcon,
   },
   {
+    name: "Exact citations",
+    href: "/citations",
+    desc: "Ask plain English questions with a SQL Schema and get queries, explanations, and update schemas.",
+    icon: CircleStackIcon,
+  },
+  {
     name: "Text Brushs",
     href: "/text",
     desc: "Instantly customize highlighted text with brush options in real-time.",
