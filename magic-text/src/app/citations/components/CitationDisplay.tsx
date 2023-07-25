@@ -19,7 +19,7 @@ const Citation = ({
     <span
       onMouseEnter={() => onHover(citation.spans)}
       onMouseLeave={() => onHover([])}
-      className="cursor-pointer block"
+      className="cursor-pointer block hover:underline-offset-1 hover:underline"
     >
       {citation.body}
     </span>
