@@ -19,7 +19,7 @@ export interface Message {
 
 interface CitationRequest {
   context: string;
-  question: string;
+  query: string;
 }
 
 export async function CitationStream(payload: CitationRequest) {
@@ -97,7 +97,7 @@ const handler = async (req: Request): Promise<Response> => {
 
   const payload: CitationRequest = {
     context: context,
-    question: query,
+    query: query,
   };
 
   const stream = await CitationStream(payload);
