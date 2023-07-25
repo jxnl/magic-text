@@ -82,8 +82,10 @@ export default function Example() {
               Exact citations
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Exact citations is a tool that helps you understand your data,
-              bring your own schema and data, and get insights from your data.
+              Not only can we use language models to answer question from a
+              context we can also use structed extraction to provide character
+              level citations that allow us to fact check each statement in the
+              context, minimizing halucinations.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <div className="relative">
