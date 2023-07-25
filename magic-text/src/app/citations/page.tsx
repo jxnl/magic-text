@@ -1,40 +1,53 @@
 "use client";
 
-import {useRef, useState} from "react";
+import { useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import {ToastContainer} from "react-toastify";
-import {ICitationData} from "@/app/api/exact_citations/route";
-import {CitationDisplay} from "@/app/citations/components/CitationDisplay";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/app/components/ui/tabs";
-import {Loader2} from "lucide-react";
+import { ToastContainer } from "react-toastify";
+import { CitationDisplay } from "@/app/citations/components/CitationDisplay";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/components/ui/tabs";
+import { Loader2 } from "lucide-react";
 
-const defaultContext = "My name is Jason Liu, and I grew up in Toronto Canada but I was born in China.I went to an arts highschool but in university I studied Computational Mathematics and physics.  As part of coop I worked at many companies including Stitchfix, Facebook.  I also started the Data Science club at the University of Waterloo and I was the president of the club for 2 years."
-const defaultQuestion = "What did the author do in school?"
+const defaultContext =
+  "My name is Jason Liu, and I grew up in Toronto Canada but I was born in China.I went to an arts highschool but in university I studied Computational Mathematics and physics.  As part of coop I worked at many companies including Stitchfix, Facebook.  I also started the Data Science club at the University of Waterloo and I was the president of the club for 2 years.";
+const defaultQuestion = "What did the author do in school?";
+
+type ICitationLocation = [number, number];
+
+type ICitationData = {
+  body: string;
+  spans: ICitationLocation[];
+  citation: string[];
+};
 
 export default function Example() {
   const [context, setContext] = useState(defaultContext);
   const inputRef = useRef<any>();
   const [loading, setLoading] = useState(false);
-  const [citations, setCitations] = useState<ICitationData[]>([])
-  const [tab, setTab] = useState('input');
+  const [citations, setCitations] = useState<ICitationData[]>([]);
+  const [tab, setTab] = useState("input");
 
-  const [savedContext, setSavedContext] = useState<string>("")
+  const [savedContext, setSavedContext] = useState<string>("");
 
   const generateCitations = async (e: any) => {
     e.preventDefault();
 
     setLoading(true);
-    setSavedContext(context)
-    setTab("preview")
-    setCitations([])
-    const response = await fetch("/api/exact_citations", {
+    setSavedContext(context);
+    setTab("preview");
+    setCitations([]);
+    const response = await fetch("/api/citations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: inputRef.current!.value,
-        context
+        context,
       }),
     });
     if (!response.ok) {
@@ -48,22 +61,20 @@ export default function Example() {
     const reader = stream.getReader();
     const decoder = new TextDecoder();
     while (true) {
-      const {value, done} = await reader.read()
+      const { value, done } = await reader.read();
       if (done) {
-        break
+        break;
       }
-      const textResponse = decoder.decode(value)
-      const citations: ICitationData[] = textResponse.split("data: ")
-        .slice(1)
-        .map(t => JSON.parse(t))
-      setCitations(prev => Array.from(prev).concat(citations))
+      const textResponse = decoder.decode(value);
+      const citations: ICitationData[] = JSON.parse(textResponse);
+      setCitations((prev) => Array.from(prev).concat(citations));
     }
     setLoading(false);
   };
 
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <div className="mx-auto max-w-7xl lg:flex lg:gap-8 lg:px-8">
         <div className="px-6 pt-10 pb-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pt-20 lg:pb-56 xl:col-span-6 flex-1">
           <div className="mx-auto max-w-2xl lg:mx-0">
@@ -71,8 +82,8 @@ export default function Example() {
               Exact citations
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Exact citations is a tool that helps you understand your data, bring
-              your own schema and data, and get insights from your data.
+              Exact citations is a tool that helps you understand your data,
+              bring your own schema and data, and get insights from your data.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <div className="relative">
@@ -105,10 +116,16 @@ export default function Example() {
           </div>
         </div>
         <div className="px-6 lg:px-0 w-full h-full flex-1">
-          <Tabs value={tab} onValueChange={setTab} className="mx-auto max-w-2xl lg:mx-0">
+          <Tabs
+            value={tab}
+            onValueChange={setTab}
+            className="mx-auto max-w-2xl lg:mx-0"
+          >
             <TabsList>
               <TabsTrigger value="input">Input</TabsTrigger>
-              <TabsTrigger value="preview" disabled={!Boolean(savedContext)}>Preview</TabsTrigger>
+              <TabsTrigger value="preview" disabled={!Boolean(savedContext)}>
+                Preview
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="input">
               <div className="relative lg:col-span-5 lg:-mr-8 my-auto">
@@ -129,10 +146,7 @@ export default function Example() {
               </div>
             </TabsContent>
             <TabsContent value="preview">
-              <CitationDisplay
-                context={savedContext}
-                citations={citations}
-              />
+              <CitationDisplay context={savedContext} citations={citations} />
             </TabsContent>
           </Tabs>
         </div>
