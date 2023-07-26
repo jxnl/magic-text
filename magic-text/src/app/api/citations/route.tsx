@@ -1,5 +1,4 @@
 import {NextRequest, NextResponse} from "next/server";
-import {ReadableStream} from "next/dist/compiled/@edge-runtime/primitives";
 
 if (!process.env.CITATIONS_URL) {
   throw new Error("Require CITATIONS_URL")
