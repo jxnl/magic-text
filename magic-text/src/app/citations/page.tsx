@@ -24,6 +24,13 @@ type ICitationData = {
   citation: string[];
 };
 
+
+function logSource(result: any) {
+  const listItem = document.createElement("div");
+  listItem.textContent = result;
+  document.body.appendChild(listItem)
+}
+
 export default function Example() {
   const [context, setContext] = useState(defaultContext);
   const inputRef = useRef<any>();
@@ -41,7 +48,7 @@ export default function Example() {
     setTab("preview");
     setCitations([]);
 
-    fetch("/api/citations", {
+    const response = await fetch("/api/citations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,27 +57,27 @@ export default function Example() {
         query: inputRef.current!.value,
         context,
       }),
-    }).then(async response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const stream = response.body;
-      if (!stream) {
-        throw new Error("Something went wrong, please try again later");
+    })
+
+    const reader = response.body!.getReader()
+    const decoder = new TextDecoder();
+
+    async function read(): Promise<any> {
+      const {done, value} = await reader.read();
+
+      if (done) {
+        return;
       }
 
-      const reader = stream.getReader();
-      const decoder = new TextDecoder();
-      while (true) {
-        const {value, done} = await reader.read();
-        if (done) {
-          break;
-        }
-        const textResponse = decoder.decode(value);
-        const citations: ICitationData[] = JSON.parse(textResponse);
-        setCitations((prev) => Array.from(prev).concat(citations));
-      }
-    }).finally(() => setLoading(false))
+      const chunk = decoder.decode(value, {stream: true});
+      const parsedCitation: ICitationData = JSON.parse(chunk)
+      setCitations(prev => Array.from(prev).concat(parsedCitation))
+      return read();
+    }
+
+    await read();
+
+    setLoading(false)
   };
 
   return (
