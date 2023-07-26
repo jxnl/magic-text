@@ -1,16 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import {useRef, useState} from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import { CitationDisplay } from "@/app/citations/components/CitationDisplay";
+import {ToastContainer} from "react-toastify";
+import {CitationDisplay} from "@/app/citations/components/CitationDisplay";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
-import { Loader2 } from "lucide-react";
+import {Loader2} from "lucide-react";
 
 const defaultContext =
   "My name is Jason Liu, and I grew up in Toronto Canada but I was born in China.I went to an arts highschool but in university I studied Computational Mathematics and physics.  As part of coop I worked at many companies including Stitchfix, Facebook.  I also started the Data Science club at the University of Waterloo and I was the president of the club for 2 years.";
@@ -40,7 +40,8 @@ export default function Example() {
     setSavedContext(context);
     setTab("preview");
     setCitations([]);
-    const response = await fetch("/api/citations", {
+
+    fetch("/api/citations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,32 +50,32 @@ export default function Example() {
         query: inputRef.current!.value,
         context,
       }),
-    });
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    const stream = response.body;
-    if (!stream) {
-      return;
-    }
-
-    const reader = stream.getReader();
-    const decoder = new TextDecoder();
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) {
-        break;
+    }).then(async response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
       }
-      const textResponse = decoder.decode(value);
-      const citations: ICitationData[] = JSON.parse(textResponse);
-      setCitations((prev) => Array.from(prev).concat(citations));
-    }
-    setLoading(false);
+      const stream = response.body;
+      if (!stream) {
+        throw new Error("Something went wrong, please try again later");
+      }
+
+      const reader = stream.getReader();
+      const decoder = new TextDecoder();
+      while (true) {
+        const {value, done} = await reader.read();
+        if (done) {
+          break;
+        }
+        const textResponse = decoder.decode(value);
+        const citations: ICitationData[] = JSON.parse(textResponse);
+        setCitations((prev) => Array.from(prev).concat(citations));
+      }
+    }).finally(() => setLoading(false))
   };
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer/>
       <div className="mx-auto max-w-7xl lg:flex lg:gap-8 lg:px-8">
         <div className="px-6 pt-10 pb-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pt-20 lg:pb-56 xl:col-span-6 flex-1">
           <div className="mx-auto max-w-2xl lg:mx-0">
@@ -111,7 +112,7 @@ export default function Example() {
                 type="button"
                 className="rounded-md flex items-center bg-red-600 py-2 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:opacity-80"
               >
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                 {loading ? "Generating..." : "Go!"}
               </button>
             </div>
@@ -148,7 +149,7 @@ export default function Example() {
               </div>
             </TabsContent>
             <TabsContent value="preview">
-              <CitationDisplay context={savedContext} citations={citations} />
+              <CitationDisplay context={savedContext} citations={citations}/>
             </TabsContent>
           </Tabs>
         </div>
