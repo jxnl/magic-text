@@ -54,8 +54,11 @@ export async function POST(request: NextRequest) {
           throw new Error(`Incorrect prefix in backend response: "${prefix}"`)
         }
         const postfix = data.substring(6)
+        console.log("Sending data")
         if (postfix !== "[DONE]") {
-          controller.enqueue(encoder.encode(postfix));
+          const enc = encoder.encode(postfix)
+          console.log("Sending data", postfix, enc)
+          controller.enqueue(enc);
         }
 
         return pump();
