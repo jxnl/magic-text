@@ -66,7 +66,7 @@ const CitationDisplay = ({
           )}
           <ul className="pb-2 list-disc list-outside">
             {citations.map((c) => (
-              <li>
+              <li key={c.body}>
                 <Citation key={c.body} citation={c} onHover={setHighlight} />
               </li>
             ))}
