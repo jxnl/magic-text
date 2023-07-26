@@ -60,8 +60,9 @@ export default function Example() {
         if (done) {
           return;
         }
-
-        const chunk = decoder.decode(value, {stream: true});
+        console.log('received', value)
+        const chunk = decoder.decode(value);
+        console.log('decoded', chunk)
         const parsedCitation: ICitationData = JSON.parse(chunk)
         setCitations(prev => Array.from(prev).concat(parsedCitation))
         return read();
