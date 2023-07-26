@@ -24,13 +24,6 @@ type ICitationData = {
   citation: string[];
 };
 
-
-function logSource(result: any) {
-  const listItem = document.createElement("div");
-  listItem.textContent = result;
-  document.body.appendChild(listItem)
-}
-
 export default function Example() {
   const [context, setContext] = useState(defaultContext);
   const inputRef = useRef<any>();
