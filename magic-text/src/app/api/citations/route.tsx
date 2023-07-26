@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         const data = decoder.decode(value);
         const prefix = data.substring(0, 6)
         if (prefix !== "data: ") {
-          throw new Error("Incorrect prefix in backend response")
+          throw new Error(`Incorrect prefix in backend response: "${prefix}"`)
         }
         const postfix = data.substring(6)
         if (postfix !== "[DONE]") {
