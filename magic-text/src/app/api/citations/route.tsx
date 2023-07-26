@@ -7,7 +7,7 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error("Require OPENAI_API_KEY")
 }
 
-export const runtime = 'edge'
+export const runtime = 'edge';
 
 export type ICitationLocation = [number, number]
 
@@ -37,9 +37,10 @@ export async function POST(request: NextRequest) {
   }
 
   const reader = response.body.getReader()
+  const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
-  return new Response(new ReadableStream({
+  const stream = new ReadableStream({
     start: (controller) => {
       return pump();
 
@@ -56,13 +57,15 @@ export async function POST(request: NextRequest) {
         }
         const postfix = data.substring(6)
         if (postfix !== "[DONE]") {
-          controller.enqueue(postfix);
+          controller.enqueue(encoder.encode(postfix));
         }
 
         return pump();
       }
     }
-  }), {
+  })
+
+  return new Response(stream, {
     status: 200,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
