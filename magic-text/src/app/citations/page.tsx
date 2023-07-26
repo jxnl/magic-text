@@ -33,7 +33,7 @@ export default function Example() {
 
   const [savedContext, setSavedContext] = useState<string>("");
 
-  const generateCitations = async (e: any) => {
+  const generateCitations = (e: any) => {
     e.preventDefault();
 
     setLoading(true);
@@ -41,7 +41,7 @@ export default function Example() {
     setTab("preview");
     setCitations([]);
 
-    const response = await fetch("/api/citations", {
+    return fetch("/api/citations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,27 +50,25 @@ export default function Example() {
         query: inputRef.current!.value,
         context,
       }),
-    })
+    }).then(async response => {
+      const reader = response.body!.getReader()
+      const decoder = new TextDecoder();
 
-    const reader = response.body!.getReader()
-    const decoder = new TextDecoder();
+      async function read(): Promise<any> {
+        const {done, value} = await reader.read();
 
-    async function read(): Promise<any> {
-      const {done, value} = await reader.read();
+        if (done) {
+          return;
+        }
 
-      if (done) {
-        return;
+        const chunk = decoder.decode(value, {stream: true});
+        const parsedCitation: ICitationData = JSON.parse(chunk)
+        setCitations(prev => Array.from(prev).concat(parsedCitation))
+        return read();
       }
 
-      const chunk = decoder.decode(value, {stream: true});
-      const parsedCitation: ICitationData = JSON.parse(chunk)
-      setCitations(prev => Array.from(prev).concat(parsedCitation))
-      return read();
-    }
-
-    await read();
-
-    setLoading(false)
+      await read();
+    }).finally(() => setLoading(false))
   };
 
   return (
