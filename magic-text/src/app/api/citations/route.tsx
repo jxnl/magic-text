@@ -36,28 +36,6 @@ export async function POST(request: NextRequest) {
   }
 
   const reader = response.body.getReader()
-
-  /*
-  reader.read().then(({ done, value }) => {
-    if (done) {
-      console.log("Stream complete");
-      para.textContent = value;
-      return;
-    }
-
-    // value for fetch streams is a Uint8Array
-    charsReceived += value.length;
-    const chunk = value;
-    let listItem = document.createElement("li");
-    listItem.textContent = `Received ${charsReceived} characters so far. Current chunk = ${chunk}`;
-    list2.appendChild(listItem);
-
-    result += chunk;
-
-    // Read some more, and call this function again
-    return reader.read().then(processText);
-  });
-   */
   const decoder = new TextDecoder();
 
   return new Response(new ReadableStream({
