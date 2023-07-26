@@ -7,6 +7,8 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error("Require OPENAI_API_KEY")
 }
 
+export const runtime = 'edge'
+
 export type ICitationLocation = [number, number]
 
 export type ICitationData = {
