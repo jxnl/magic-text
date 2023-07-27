@@ -52,12 +52,10 @@ export default function Example() {
         context,
       }),
     })
-      .then(response => response.body)
-      .then(async (stream) => {
-        if (!stream) {
-          console.error("API does not return stream")
-          return
-        }
+      .then(async (response) => {
+        const res = await response.json()
+        console.log('received json', res)
+        /*
         const decoder = new TextDecoder();
         for await (const chunk of stream) {
           console.log("received", chunk);
@@ -66,6 +64,7 @@ export default function Example() {
           const parsedCitation: ICitationData = JSON.parse(value);
           setCitations((prev) => Array.from(prev).concat(parsedCitation));
         }
+         */
         /*
         const reader = stream.getReader();
         const decoder = new TextDecoder();
