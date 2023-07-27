@@ -58,11 +58,20 @@ export default function Example() {
           return
         }
         const decoder = new TextDecoder();
+        let concatChunk = ""
         // @ts-ignore
         for await (const chunk of stream) {
           console.log("received", chunk);
           const value = decoder.decode(chunk);
           console.log("decoded", value);
+          concatChunk += value
+          try {
+            const parsedCitation = JSON.parse(concatChunk)
+            setCitations((prev) => Array.from(prev).concat(parsedCitation));
+            concatChunk = ""
+          } catch (e) {
+
+          }
           // const parsedCitation: ICitationData = JSON.parse(value);
           // setCitations((prev) => Array.from(prev).concat(parsedCitation));
         }
