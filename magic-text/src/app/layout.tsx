@@ -31,16 +31,16 @@ export const metadata = {
         height: 600,
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    cardType: "summary_large_image",
+    card: "summary_large_image",
     title,
     description,
     creator: "@jxnlco",
     images: ["/welcome.png"],
   },
-  locale: "en-US",
-  type: "website",
 };
 
 export default function RootLayout({

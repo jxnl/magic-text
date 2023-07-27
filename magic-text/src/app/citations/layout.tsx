@@ -1,6 +1,6 @@
-const title = "Data Analysis";
+const title = "Citations";
 const description =
-  "Magic Data Analysis is a tool for extracting knowledge from data by asking questions.";
+  "Magic Citations not only answer questions based on context but will also show you eactly where its coming from!";
 
 export const metadata = {
   title,
