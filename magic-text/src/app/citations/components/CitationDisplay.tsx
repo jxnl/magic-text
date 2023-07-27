@@ -40,7 +40,7 @@ const CitationDisplay = ({
       return context;
     }
     let result = context;
-    for (let loc of highlight) {
+    for (let loc of Array.from(highlight).sort((a,b) => b[0] - a[0])) {
       result =
         result.slice(0, loc[0]) +
         `<mark>` +
