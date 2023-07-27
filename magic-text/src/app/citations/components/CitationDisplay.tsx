@@ -43,7 +43,7 @@ const CitationDisplay = ({
     for (let loc of highlight) {
       result =
         result.slice(0, loc[0]) +
-        `<mark class="bg-red-900 py-1 font-medium text-slate-100">` +
+        `<mark>` +
         result.slice(loc[0], loc[1]) +
         "</mark>" +
         result.slice(loc[1]);
