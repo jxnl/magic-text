@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
         const postfix = data.substring(6)
         console.log("Sending data")
         if (postfix !== "[DONE]") {
-          const enc = encoder.encode(postfix + " ")
+          const enc = encoder.encode(postfix + "    ")
           console.log("Sending data", postfix, enc)
           controller.enqueue(enc);
         }
