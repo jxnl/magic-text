@@ -57,13 +57,21 @@ export default function Example() {
         if (!stream) {
           return
         }
+        const reader = stream.getReader()
         const decoder = new TextDecoder();
-        // @ts-ignore
-        for await (const chunk of stream) {
+
+        reader.read().then(function processText({done, value: chunk}): Promise<void> | void {
+          if (done) {
+            return;
+          }
+
           const value = decoder.decode(chunk);
           const parsedCitation = JSON.parse(value)
           setCitations((prev) => Array.from(prev).concat(parsedCitation));
-        }
+
+          // Read some more, and call this function again
+          return reader.read().then(processText);
+        });
       })
       .finally(() => {
         setLoading(false);
