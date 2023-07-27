@@ -58,44 +58,12 @@ export default function Example() {
           return
         }
         const decoder = new TextDecoder();
-        let concatChunk = ""
         // @ts-ignore
         for await (const chunk of stream) {
-          console.log("received", chunk);
           const value = decoder.decode(chunk);
-          console.log("decoded", value);
-          concatChunk += value
-          try {
-            const parsedCitation = JSON.parse(concatChunk)
-            setCitations((prev) => Array.from(prev).concat(parsedCitation));
-            concatChunk = ""
-          } catch (e) {
-
-          }
-          // const parsedCitation: ICitationData = JSON.parse(value);
-          // setCitations((prev) => Array.from(prev).concat(parsedCitation));
-        }
-        /*
-        const reader = stream.getReader();
-        const decoder = new TextDecoder();
-
-        async function read(): Promise<any> {
-          const { done, value } = await reader.read();
-
-          if (done) {
-            return;
-          }
-          console.log("received", value);
-          const chunk = decoder.decode(value);
-          console.log("decoded", chunk);
-          const parsedCitation: ICitationData = JSON.parse(chunk);
+          const parsedCitation = JSON.parse(value)
           setCitations((prev) => Array.from(prev).concat(parsedCitation));
-          return read();
         }
-
-        await read();
-
-         */
       })
       .finally(() => {
         setLoading(false);

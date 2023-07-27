@@ -54,10 +54,10 @@ export async function POST(request: NextRequest) {
           throw new Error(`Incorrect prefix in backend response: "${prefix}"`)
         }
         const postfix = data.substring(6)
-        console.log("Sending data")
         if (postfix !== "[DONE]") {
+          // Spaces at the end are VERY important
+          // Otherwise, Vercel will NOT send full chunk
           const enc = encoder.encode(postfix + "    ")
-          console.log("Sending data", postfix, enc)
           controller.enqueue(enc);
         }
 
