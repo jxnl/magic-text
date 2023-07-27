@@ -58,6 +58,7 @@ export default function Example() {
           return
         }
         const decoder = new TextDecoder();
+        // @ts-ignore
         for await (const chunk of stream) {
           console.log("received", chunk);
           const value = decoder.decode(chunk);
